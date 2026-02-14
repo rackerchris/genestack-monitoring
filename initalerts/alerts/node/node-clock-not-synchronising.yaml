@@ -4,7 +4,6 @@ groups:
       - alert: node-clock-not-synchronising-warning
         expr: >-
           min_over_time(node_timex_sync_status{job="node-exporter"}[5m]) == 0
-
           and node_timex_maxerror_seconds{job="node-exporter"} >= 16
         for: 5m
         labels:
