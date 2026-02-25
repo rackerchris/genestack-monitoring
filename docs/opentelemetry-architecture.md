@@ -328,7 +328,7 @@ Both platforms render Mermaid diagrams automatically in markdown files.
 
 Your OpenTelemetry stack now provides:
 
-✅ **3 Log Receivers**: K8s containers + K8s events + OpenStack (consolidated 17 services)
+✅ **3 Log Receivers**: K8s containers + K8s events + OpenStack (consolidated 17 services)  
 ✅ **6 Trace Receivers**: OTLP (gRPC + HTTP) + Jaeger (gRPC + HTTP + Compact) + Zipkin  
 ✅ **2 Active Metrics Receivers**: OTLP + Host Metrics (kubeletstats disabled)  
 ✅ **11 Processors**: Node labeling, K8s enrichment, batching, resource detection, Loki label mapping  
