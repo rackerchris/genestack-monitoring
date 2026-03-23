@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
           group_name: mariadb-too-many-connections
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: "More than 80% of MySQL connections are in use on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: >-
+            More than 80% of MySQL connections are in use on {{ $labels.instance }}. This warning alert
+            fires after 2m.
           runbook_url: default_runbook_url
           summary: MySQL too many connections (> 80%) (instance {{ $labels.instance }})
           dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
           group_name: mariadb-too-many-connections
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: "More than 80% of MySQL connections are in use on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          description: >-
+            More than 80% of MySQL connections are in use on {{ $labels.instance }}. This critical alert
+            fires after 5m.
           runbook_url: default_runbook_url
           summary: MySQL too many connections (> 80%) (instance {{ $labels.instance }})
           dashboard_url: default_dashboard_url

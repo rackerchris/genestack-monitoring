@@ -14,9 +14,8 @@ additionalPrometheusRulesMap:
           coredeviceid: '{{ $labels.rackspace_com_coreDeviceID }}'
           node: '{{ $labels.instance }}'
         annotations:
-          description: '{{ $labels.name }}
-
-            labels: {{ $labels }}'
+          description: >-
+            {{ $labels.name }} labels: {{ $labels }}. This warning alert fires after 2m.
           runbook_url: default_runbook_url
           summary: Multipathd paths are NOT active|ready and paths are likely orphaned
           dashboard_url: default_dashboard_url
@@ -31,9 +30,8 @@ additionalPrometheusRulesMap:
           coredeviceid: '{{ $labels.rackspace_com_coreDeviceID }}'
           node: '{{ $labels.instance }}'
         annotations:
-          description: '{{ $labels.name }}
-
-            labels: {{ $labels }}'
+          description: >-
+            {{ $labels.name }} labels: {{ $labels }}. This critical alert fires after 5m.
           runbook_url: default_runbook_url
           summary: Multipathd paths are NOT active|ready and paths are likely orphaned
           dashboard_url: default_dashboard_url

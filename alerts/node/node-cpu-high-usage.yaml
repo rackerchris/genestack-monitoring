@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: node-cpu-high-usage
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'CPU usage at {{ $labels.instance }} has been above 90% for the last 5 minutes, is currently at {{ printf "%.2f" $value }}%.'
+              description: >-
+                CPU usage at {{ $labels.instance }} has been above 90% for the last 5 minutes, is currently at
+                {{ printf "%.2f" $value }}%.
               runbook_url: default_runbook_url
               summary: High CPU usage.
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: node-cpu-high-usage
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'CPU usage at {{ $labels.instance }} has been above 90% for the last 15 minutes, is currently at {{ printf "%.2f" $value }}%.'
+              description: >-
+                CPU usage at {{ $labels.instance }} has been above 90% for the last 15 minutes, is currently at
+                {{ printf "%.2f" $value }}%.
               runbook_url: default_runbook_url
               summary: High CPU usage.
               dashboard_url: default_dashboard_url

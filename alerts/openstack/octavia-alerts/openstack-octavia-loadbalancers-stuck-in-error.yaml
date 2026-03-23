@@ -11,9 +11,9 @@ additionalPrometheusRulesMap:
           group_name: openstack-octavia-loadbalancers-stuck-in-error
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'This could indicate problems building load balancers and should be investigated.
-
-            '
+          description: >-
+            This could indicate problems building load balancers and should be investigated. This warning
+            alert fires after 15m.
           runbook_url: default_runbook_url
           summary: Loadbalancers stuck in error state for a prolonged period
           dashboard_url: default_dashboard_url
@@ -25,9 +25,9 @@ additionalPrometheusRulesMap:
           group_name: openstack-octavia-loadbalancers-stuck-in-error
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'This could indicate problems building load balancers and should be investigated.
-
-            '
+          description: >-
+            This could indicate problems building load balancers and should be investigated. This critical
+            alert fires after 30m.
           runbook_url: default_runbook_url
           summary: Loadbalancers stuck in error state for a prolonged period
           dashboard_url: default_dashboard_url

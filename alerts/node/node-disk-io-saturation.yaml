@@ -13,12 +13,10 @@ additionalPrometheusRulesMap:
               group_name: node-disk-io-saturation
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description:
-                'Disk IO queue (aqu-sq) is high on {{ $labels.device }} at {{ $labels.instance }}, has been above 10 for the last 5 minutes, is currently at {{ printf "%.2f" $value }}.
-
-                This symptom might indicate disk saturation.
-
-                '
+              description: >-
+                Disk IO queue (aqu-sq) is high on {{ $labels.device }} at {{ $labels.instance }}, has been above
+                10 for the last 5 minutes, is currently at {{ printf "%.2f" $value }}. This symptom might
+                indicate disk saturation.
               runbook_url: default_runbook_url
               summary: Disk IO queue is high.
               dashboard_url: default_dashboard_url
@@ -33,12 +31,10 @@ additionalPrometheusRulesMap:
               group_name: node-disk-io-saturation
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description:
-                'Disk IO queue (aqu-sq) is high on {{ $labels.device }} at {{ $labels.instance }}, has been above 10 for the last 15 minutes, is currently at {{ printf "%.2f" $value }}.
-
-                This symptom might indicate disk saturation.
-
-                '
+              description: >-
+                Disk IO queue (aqu-sq) is high on {{ $labels.device }} at {{ $labels.instance }}, has been above
+                10 for the last 15 minutes, is currently at {{ printf "%.2f" $value }}. This symptom might
+                indicate disk saturation.
               runbook_url: default_runbook_url
               summary: Disk IO queue is high.
               dashboard_url: default_dashboard_url

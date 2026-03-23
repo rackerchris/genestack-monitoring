@@ -14,7 +14,9 @@ additionalPrometheusRulesMap:
               group_name: kube-pod-not-ready
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 5 minutes on cluster {{ $labels.cluster }}.
+              description: >-
+                Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 5
+                minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Pod has been in a non-ready state for more than 5 minutes.
               dashboard_url: default_dashboard_url
@@ -29,7 +31,9 @@ additionalPrometheusRulesMap:
               group_name: kube-pod-not-ready
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes on cluster {{ $labels.cluster }}.
+              description: >-
+                Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15
+                minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Pod has been in a non-ready state for more than 15 minutes.
               dashboard_url: default_dashboard_url

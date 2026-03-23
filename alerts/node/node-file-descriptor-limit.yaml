@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: node-file-descriptor-limit
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: File descriptors limit at {{ $labels.instance }} is currently at {{ printf "%.2f" $value }}%.
+              description: >-
+                File descriptors limit at {{ $labels.instance }} is currently at {{ printf "%.2f" $value }}%.
+                This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Kernel is predicted to exhaust file descriptors limit soon.
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: node-file-descriptor-limit
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: File descriptors limit at {{ $labels.instance }} is currently at {{ printf "%.2f" $value }}%.
+              description: >-
+                File descriptors limit at {{ $labels.instance }} is currently at {{ printf "%.2f" $value }}%.
+                This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Kernel is predicted to exhaust file descriptors limit soon.
               dashboard_url: default_dashboard_url

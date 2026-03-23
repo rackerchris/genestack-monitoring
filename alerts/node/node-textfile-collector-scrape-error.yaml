@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: node-textfile-collector-scrape-error
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Node Exporter text file collector on {{ $labels.instance }} failed to scrape.
+              description: >-
+                Node Exporter text file collector on {{ $labels.instance }} failed to scrape. This warning alert
+                fires after 5m.
               runbook_url: default_runbook_url
               summary: Node Exporter text file collector failed to scrape.
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: node-textfile-collector-scrape-error
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Node Exporter text file collector on {{ $labels.instance }} failed to scrape.
+              description: >-
+                Node Exporter text file collector on {{ $labels.instance }} failed to scrape. This critical
+                alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Node Exporter text file collector failed to scrape.
               dashboard_url: default_dashboard_url

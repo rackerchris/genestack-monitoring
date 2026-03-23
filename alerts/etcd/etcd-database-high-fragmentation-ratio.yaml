@@ -12,7 +12,11 @@ additionalPrometheusRulesMap:
               group_name: etcd-database-high-fragmentation-ratio
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": database size in use on instance {{ $labels.instance }} is {{ $value | humanizePercentage }} of the actual allocated disk space, please run defragmentation (e.g. etcdctl defrag) to retrieve the unused fragmented disk space.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": database size in use on instance {{ $labels.instance }} is {{
+                $value | humanizePercentage }} of the actual allocated disk space, please run defragmentation
+                (e.g. etcdctl defrag) to retrieve the unused fragmented disk space. This warning alert fires
+                after 10m.
               runbook_url: default_runbook_url
               summary: etcd database size in use is less than 50% of the actual allocated storage.
               dashboard_url: default_dashboard_url
@@ -25,7 +29,11 @@ additionalPrometheusRulesMap:
               group_name: etcd-database-high-fragmentation-ratio
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": database size in use on instance {{ $labels.instance }} is {{ $value | humanizePercentage }} of the actual allocated disk space, please run defragmentation (e.g. etcdctl defrag) to retrieve the unused fragmented disk space.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": database size in use on instance {{ $labels.instance }} is {{
+                $value | humanizePercentage }} of the actual allocated disk space, please run defragmentation
+                (e.g. etcdctl defrag) to retrieve the unused fragmented disk space. This critical alert fires
+                after 15m.
               runbook_url: default_runbook_url
               summary: etcd database size in use is less than 50% of the actual allocated storage.
               dashboard_url: default_dashboard_url

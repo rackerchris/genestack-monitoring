@@ -12,7 +12,9 @@ additionalPrometheusRulesMap:
               group_name: kube-quota-fully-used
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota on cluster {{ $labels.cluster }}.
+              description: >-
+                Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{
+                $labels.resource }} quota on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Namespace quota is fully used.
               dashboard_url: default_dashboard_url
@@ -25,7 +27,9 @@ additionalPrometheusRulesMap:
               group_name: kube-quota-fully-used
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota on cluster {{ $labels.cluster }}.
+              description: >-
+                Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{
+                $labels.resource }} quota on cluster {{ $labels.cluster }}. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Namespace quota is fully used.
               dashboard_url: default_dashboard_url

@@ -13,7 +13,9 @@ additionalPrometheusRulesMap:
               group_name: kube-deployment-rollout-stuck
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 5 minutes on cluster {{ $labels.cluster }}.
+              description: >-
+                Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for
+                longer than 5 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Deployment rollout is not progressing.
               dashboard_url: default_dashboard_url
@@ -27,7 +29,9 @@ additionalPrometheusRulesMap:
               group_name: kube-deployment-rollout-stuck
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes on cluster {{ $labels.cluster }}.
+              description: >-
+                Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for
+                longer than 15 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Deployment rollout is not progressing.
               dashboard_url: default_dashboard_url

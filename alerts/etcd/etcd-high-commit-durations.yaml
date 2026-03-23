@@ -12,7 +12,9 @@ additionalPrometheusRulesMap:
               group_name: etcd-high-commit-durations
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": 99th percentile commit durations {{ $value }}s on etcd instance {{ $labels.instance }}.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": 99th percentile commit durations {{ $value }}s on etcd
+                instance {{ $labels.instance }}. This warning alert fires after 10m.
               summary: etcd cluster 99th percentile commit durations are too high.
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url
@@ -25,7 +27,9 @@ additionalPrometheusRulesMap:
               group_name: etcd-high-commit-durations
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": 99th percentile commit durations {{ $value }}s on etcd instance {{ $labels.instance }}.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": 99th percentile commit durations {{ $value }}s on etcd
+                instance {{ $labels.instance }}. This critical alert fires after 15m.
               summary: etcd cluster 99th percentile commit durations are too high.
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url

@@ -1,0 +1,35 @@
+additionalPrometheusRulesMap:
+  prometheus-kubernetes-list-watch-failures:
+    groups:
+    - name: prometheus-kubernetes-list-watch-failures
+      rules:
+      - alert: prometheus-kubernetes-list-watch-failures-warning
+        expr: increase(prometheus_sd_kubernetes_failures_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) > 0
+        for: 15m
+        labels:
+          severity: warning
+          group_name: prometheus-kubernetes-list-watch-failures
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Kubernetes service discovery of Prometheus {{$labels.namespace}}/{{$labels.pod}} is experiencing
+            {{ printf "%.0f" $value }} failures with LIST/WATCH requests to the Kubernetes API in the last 5
+            minutes. This warning alert fires after 15m.
+          runbook_url: default_runbook_url
+          summary: Requests in Kubernetes SD are failing.
+          dashboard_url: default_dashboard_url
+      - alert: prometheus-kubernetes-list-watch-failures-critical
+        expr: increase(prometheus_sd_kubernetes_failures_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) > 0
+        for: 30m
+        labels:
+          severity: critical
+          group_name: prometheus-kubernetes-list-watch-failures
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Kubernetes service discovery of Prometheus {{$labels.namespace}}/{{$labels.pod}} is experiencing
+            {{ printf "%.0f" $value }} failures with LIST/WATCH requests to the Kubernetes API in the last 5
+            minutes. This critical alert fires after 30m.
+          runbook_url: default_runbook_url
+          summary: Requests in Kubernetes SD are failing.
+          dashboard_url: default_dashboard_url

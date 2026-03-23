@@ -14,11 +14,9 @@ additionalPrometheusRulesMap:
           coreDeviceID: '{{ $labels.rackspace_com_coreDeviceID }}'
           node: '{{ $labels.instance }}'
         annotations:
-          description: '{{ $labels.name }}
-
-            Persistence:{{ $labels.Persistence }}
-
-            LABELS: {{ $labels }}'
+          description: >-
+            {{ $labels.name }} Persistence:{{ $labels.Persistence }} LABELS: {{ $labels }}. This warning
+            alert fires after 1m.
           runbook_url: default_runbook_url
           summary: Linux software MD Superblock is NOT persistent
           dashboard_url: default_dashboard_url
@@ -33,11 +31,9 @@ additionalPrometheusRulesMap:
           coreDeviceID: '{{ $labels.rackspace_com_coreDeviceID }}'
           node: '{{ $labels.instance }}'
         annotations:
-          description: '{{ $labels.name }}
-
-            Persistence:{{ $labels.Persistence }}
-
-            LABELS: {{ $labels }}'
+          description: >-
+            {{ $labels.name }} Persistence:{{ $labels.Persistence }} LABELS: {{ $labels }}. This critical
+            alert fires after 5m.
           runbook_url: default_runbook_url
           summary: Linux software MD Superblock is NOT persistent
           dashboard_url: default_dashboard_url

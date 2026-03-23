@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: node-systemd-service-crash-looping
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Systemd service {{ $labels.name }} has being restarted too many times at {{ $labels.instance }} for the last 5 minutes. Please check if service is crash looping.
+              description: >-
+                Systemd service {{ $labels.name }} has being restarted too many times at {{ $labels.instance }}
+                for the last 5 minutes. Please check if service is crash looping.
               runbook_url: default_runbook_url
               summary: Systemd service keeps restaring, possibly crash looping.
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: node-systemd-service-crash-looping
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Systemd service {{ $labels.name }} has being restarted too many times at {{ $labels.instance }} for the last 15 minutes. Please check if service is crash looping.
+              description: >-
+                Systemd service {{ $labels.name }} has being restarted too many times at {{ $labels.instance }}
+                for the last 15 minutes. Please check if service is crash looping.
               runbook_url: default_runbook_url
               summary: Systemd service keeps restaring, possibly crash looping.
               dashboard_url: default_dashboard_url

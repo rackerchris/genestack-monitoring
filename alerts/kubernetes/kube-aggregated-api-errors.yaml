@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: kube-aggregated-api-errors
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Kubernetes aggregated API {{ $labels.instance }}/{{ $labels.name }} has reported {{ $labels.reason }} errors on cluster {{ $labels.cluster }}.
+              description: >-
+                Kubernetes aggregated API {{ $labels.instance }}/{{ $labels.name }} has reported {{
+                $labels.reason }} errors on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Kubernetes aggregated API has reported errors.
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: kube-aggregated-api-errors
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Kubernetes aggregated API {{ $labels.instance }}/{{ $labels.name }} has reported {{ $labels.reason }} errors on cluster {{ $labels.cluster }}.
+              description: >-
+                Kubernetes aggregated API {{ $labels.instance }}/{{ $labels.name }} has reported {{
+                $labels.reason }} errors on cluster {{ $labels.cluster }}. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Kubernetes aggregated API has reported errors.
               dashboard_url: default_dashboard_url

@@ -17,9 +17,9 @@ additionalPrometheusRulesMap:
           group_name: openstack-cinder-volume-status-error-deleting-count
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'There are {{ $value }} Cinder volumes in error_deleting state.
-
-            LABELS: {{ $labels }}'
+          description: >-
+            There are {{ $value }} Cinder volumes in error_deleting state. LABELS: {{ $labels }}. This
+            warning alert fires after 1m.
           runbook_url: default_runbook_url
           summary: There are {{ $value }} Cinder volumes in error_deleting state
           dashboard_url: default_dashboard_url
@@ -37,9 +37,9 @@ additionalPrometheusRulesMap:
           group_name: openstack-cinder-volume-status-error-deleting-count
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'There are {{ $value }} Cinder volumes in error_deleting state.
-
-            LABELS: {{ $labels }}'
+          description: >-
+            There are {{ $value }} Cinder volumes in error_deleting state. LABELS: {{ $labels }}. This
+            critical alert fires after 5m.
           runbook_url: default_runbook_url
           summary: There are {{ $value }} Cinder volumes in error_deleting state
           dashboard_url: default_dashboard_url

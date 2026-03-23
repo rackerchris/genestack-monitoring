@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: node-bonding-degraded
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Bonding interface {{ $labels.master }} on {{ $labels.instance }} is in degraded state due to one or more slave failures.
+              description: >-
+                Bonding interface {{ $labels.master }} on {{ $labels.instance }} is in degraded state due to one
+                or more slave failures. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Bonding interface is degraded.
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: node-bonding-degraded
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Bonding interface {{ $labels.master }} on {{ $labels.instance }} is in degraded state due to one or more slave failures.
+              description: >-
+                Bonding interface {{ $labels.master }} on {{ $labels.instance }} is in degraded state due to one
+                or more slave failures. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Bonding interface is degraded.
               dashboard_url: default_dashboard_url

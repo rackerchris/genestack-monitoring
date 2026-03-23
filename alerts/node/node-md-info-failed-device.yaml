@@ -14,11 +14,9 @@ additionalPrometheusRulesMap:
           coreDeviceID: '{{ $labels.rackspace_com_coreDeviceID }}'
           node: '{{ $labels.instance }}'
         annotations:
-          description: '{{ $labels.name }}
-
-            Number MD Failed:{{ $labels.FailedDevices }}
-
-            LABELS: {{ $labels }}'
+          description: >-
+            {{ $labels.name }} Number MD Failed:{{ $labels.FailedDevices }} LABELS: {{ $labels }}. This
+            warning alert fires after 2m.
           runbook_url: default_runbook_url
           summary: NVME device on Linux software RAID failure info
           dashboard_url: default_dashboard_url
@@ -33,11 +31,9 @@ additionalPrometheusRulesMap:
           coreDeviceID: '{{ $labels.rackspace_com_coreDeviceID }}'
           node: '{{ $labels.instance }}'
         annotations:
-          description: '{{ $labels.name }}
-
-            Number MD Failed:{{ $labels.FailedDevices }}
-
-            LABELS: {{ $labels }}'
+          description: >-
+            {{ $labels.name }} Number MD Failed:{{ $labels.FailedDevices }} LABELS: {{ $labels }}. This
+            critical alert fires after 5m.
           runbook_url: default_runbook_url
           summary: NVME device on Linux software RAID failure info
           dashboard_url: default_dashboard_url

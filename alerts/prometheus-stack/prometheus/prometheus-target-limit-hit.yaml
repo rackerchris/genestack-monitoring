@@ -1,0 +1,35 @@
+additionalPrometheusRulesMap:
+  prometheus-target-limit-hit:
+    groups:
+    - name: prometheus-target-limit-hit
+      rules:
+      - alert: prometheus-target-limit-hit-warning
+        expr: increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) > 0
+        for: 15m
+        labels:
+          severity: warning
+          group_name: prometheus-target-limit-hit
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf "%.0f" $value }} targets
+            because the number of targets exceeded the configured target_limit. This warning alert fires
+            after 15m.
+          runbook_url: default_runbook_url
+          summary: Prometheus has dropped targets because some scrape configs have exceeded the targets limit.
+          dashboard_url: default_dashboard_url
+      - alert: prometheus-target-limit-hit-critical
+        expr: increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) > 0
+        for: 30m
+        labels:
+          severity: critical
+          group_name: prometheus-target-limit-hit
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf "%.0f" $value }} targets
+            because the number of targets exceeded the configured target_limit. This critical alert fires
+            after 30m.
+          runbook_url: default_runbook_url
+          summary: Prometheus has dropped targets because some scrape configs have exceeded the targets limit.
+          dashboard_url: default_dashboard_url

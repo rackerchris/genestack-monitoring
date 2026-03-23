@@ -13,7 +13,9 @@ additionalPrometheusRulesMap:
               group_name: kube-persistent-volume-errors
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: The persistent volume {{ $labels.persistentvolume }} {{ with $labels.cluster -}} on Cluster {{ . }} {{- end }} has status {{ $labels.phase }}.
+              description: >-
+                The persistent volume {{ $labels.persistentvolume }} {{ with $labels.cluster -}} on Cluster {{ .
+                }} {{- end }} has status {{ $labels.phase }}. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: PersistentVolume is having issues with provisioning.
               dashboard_url: default_dashboard_url
@@ -27,7 +29,9 @@ additionalPrometheusRulesMap:
               group_name: kube-persistent-volume-errors
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: The persistent volume {{ $labels.persistentvolume }} {{ with $labels.cluster -}} on Cluster {{ . }} {{- end }} has status {{ $labels.phase }}.
+              description: >-
+                The persistent volume {{ $labels.persistentvolume }} {{ with $labels.cluster -}} on Cluster {{ .
+                }} {{- end }} has status {{ $labels.phase }}. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: PersistentVolume is having issues with provisioning.
               dashboard_url: default_dashboard_url

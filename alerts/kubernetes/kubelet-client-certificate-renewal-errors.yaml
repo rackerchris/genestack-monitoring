@@ -11,7 +11,10 @@ additionalPrometheusRulesMap:
               group_name: kubelet-client-certificate-renewal-errors
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Kubelet on node {{ $labels.node }} has failed to renew its client certificate ({{ $value | humanize }} errors in the last 5 minutes) on cluster {{ $labels.cluster }}.
+              description: >-
+                Kubelet on node {{ $labels.node }} has failed to renew its client certificate ({{ $value |
+                humanize }} errors in the last 5 minutes) on cluster {{ $labels.cluster }}. This warning alert
+                fires after 5m.
               runbook_url: default_runbook_url
               summary: Kubelet has failed to renew its client certificate.
               dashboard_url: default_dashboard_url
@@ -23,7 +26,10 @@ additionalPrometheusRulesMap:
               group_name: kubelet-client-certificate-renewal-errors
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Kubelet on node {{ $labels.node }} has failed to renew its client certificate ({{ $value | humanize }} errors in the last 5 minutes) on cluster {{ $labels.cluster }}.
+              description: >-
+                Kubelet on node {{ $labels.node }} has failed to renew its client certificate ({{ $value |
+                humanize }} errors in the last 5 minutes) on cluster {{ $labels.cluster }}. This critical alert
+                fires after 15m.
               runbook_url: default_runbook_url
               summary: Kubelet has failed to renew its client certificate.
               dashboard_url: default_dashboard_url

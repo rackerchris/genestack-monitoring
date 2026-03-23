@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: node-systemd-service-failed
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Systemd service {{ $labels.name }} has entered failed state at {{ $labels.instance }}
+              description: >-
+                Systemd service {{ $labels.name }} has entered failed state at {{ $labels.instance }}. This
+                warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Systemd service has entered failed state.
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: node-systemd-service-failed
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Systemd service {{ $labels.name }} has entered failed state at {{ $labels.instance }}
+              description: >-
+                Systemd service {{ $labels.name }} has entered failed state at {{ $labels.instance }}. This
+                critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Systemd service has entered failed state.
               dashboard_url: default_dashboard_url

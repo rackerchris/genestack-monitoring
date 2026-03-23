@@ -11,7 +11,8 @@ additionalPrometheusRulesMap:
           group_name: openstack-floating-ip-availability
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: There are less than 100 floating IPs available to assign
+          description: >-
+            There are less than 100 floating IPs available to assign
           runbook_url: default_runbook_url
           summary: Floating IPs available less than one hundred
           dashboard_url: default_dashboard_url
@@ -23,7 +24,8 @@ additionalPrometheusRulesMap:
           group_name: openstack-floating-ip-availability
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: There are less than 20 floating IPs available to assign
+          description: >-
+            There are less than 20 floating IPs available to assign
           runbook_url: default_runbook_url
           summary: Floating IPs available less than twenty
           dashboard_url: default_dashboard_url

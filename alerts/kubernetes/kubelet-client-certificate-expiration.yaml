@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: kubelet-client-certificate-expiration
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.
+              description: >-
+                Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value |
+                humanizeDuration }} on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Kubelet client certificate is about to expire.
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: kubelet-client-certificate-expiration
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.
+              description: >-
+                Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value |
+                humanizeDuration }} on cluster {{ $labels.cluster }}. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Kubelet client certificate is about to expire.
               dashboard_url: default_dashboard_url

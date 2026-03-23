@@ -14,7 +14,9 @@ additionalPrometheusRulesMap:
               group_name: node-filesystem-files-filling-up
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Filesystem on {{ $labels.device }}, mounted on {{ $labels.mountpoint }}, at {{ $labels.instance }} has only {{ printf "%.2f" $value }}% available inodes left and is filling up fast.
+              description: >-
+                Filesystem on {{ $labels.device }}, mounted on {{ $labels.mountpoint }}, at {{ $labels.instance
+                }} has only {{ printf "%.2f" $value }}% available inodes left and is filling up fast.
               runbook_url: default_runbook_url
               summary: Filesystem is predicted to run out of inodes within the next 4 hours.
               dashboard_url: default_dashboard_url
@@ -29,7 +31,9 @@ additionalPrometheusRulesMap:
               group_name: node-filesystem-files-filling-up
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Filesystem on {{ $labels.device }}, mounted on {{ $labels.mountpoint }}, at {{ $labels.instance }} has only {{ printf "%.2f" $value }}% available inodes left and is filling up fast.
+              description: >-
+                Filesystem on {{ $labels.device }}, mounted on {{ $labels.mountpoint }}, at {{ $labels.instance
+                }} has only {{ printf "%.2f" $value }}% available inodes left and is filling up fast.
               runbook_url: default_runbook_url
               summary: Filesystem is predicted to run out of inodes within the next 4 hours.
               dashboard_url: default_dashboard_url

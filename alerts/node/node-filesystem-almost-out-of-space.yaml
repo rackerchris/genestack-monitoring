@@ -12,7 +12,9 @@ additionalPrometheusRulesMap:
               group_name: node-filesystem-almost-out-of-space
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Filesystem on {{ $labels.device }}, mounted on {{ $labels.mountpoint }}, at {{ $labels.instance }} has only {{ printf "%.2f" $value }}% available space left.
+              description: >-
+                Filesystem on {{ $labels.device }}, mounted on {{ $labels.mountpoint }}, at {{ $labels.instance
+                }} has only {{ printf "%.2f" $value }}% available space left.
               runbook_url: default_runbook_url
               summary: Filesystem has less than 3% space left.
               dashboard_url: default_dashboard_url
@@ -25,7 +27,9 @@ additionalPrometheusRulesMap:
               group_name: node-filesystem-almost-out-of-space
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Filesystem on {{ $labels.device }}, mounted on {{ $labels.mountpoint }}, at {{ $labels.instance }} has only {{ printf "%.2f" $value }}% available space left.
+              description: >-
+                Filesystem on {{ $labels.device }}, mounted on {{ $labels.mountpoint }}, at {{ $labels.instance
+                }} has only {{ printf "%.2f" $value }}% available space left.
               runbook_url: default_runbook_url
               summary: Filesystem has less than 3% space left.
               dashboard_url: default_dashboard_url

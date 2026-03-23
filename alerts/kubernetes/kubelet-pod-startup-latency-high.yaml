@@ -12,7 +12,9 @@ additionalPrometheusRulesMap:
               group_name: kubelet-pod-startup-latency-high
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }} on cluster {{ $labels.cluster }}.
+              description: >-
+                Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }}
+                on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Kubelet Pod startup latency is too high.
               dashboard_url: default_dashboard_url
@@ -25,7 +27,9 @@ additionalPrometheusRulesMap:
               group_name: kubelet-pod-startup-latency-high
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }} on cluster {{ $labels.cluster }}.
+              description: >-
+                Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }}
+                on cluster {{ $labels.cluster }}. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Kubelet Pod startup latency is too high.
               dashboard_url: default_dashboard_url

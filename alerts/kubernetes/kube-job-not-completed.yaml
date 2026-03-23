@@ -16,7 +16,10 @@ additionalPrometheusRulesMap:
               group_name: kube-job-not-completed
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than {{ "43200" | humanizeDuration }} to complete on cluster {{ $labels.cluster }}.
+              description: >-
+                Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than {{ "43200" |
+                humanizeDuration }} to complete on cluster {{ $labels.cluster }}. This warning alert fires after
+                5m.
               runbook_url: default_runbook_url
               summary: Job did not complete in time
               dashboard_url: default_dashboard_url
@@ -33,7 +36,10 @@ additionalPrometheusRulesMap:
               group_name: kube-job-not-completed
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than {{ "43200" | humanizeDuration }} to complete on cluster {{ $labels.cluster }}.
+              description: >-
+                Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than {{ "43200" |
+                humanizeDuration }} to complete on cluster {{ $labels.cluster }}. This critical alert fires
+                after 15m.
               runbook_url: default_runbook_url
               summary: Job did not complete in time
               dashboard_url: default_dashboard_url

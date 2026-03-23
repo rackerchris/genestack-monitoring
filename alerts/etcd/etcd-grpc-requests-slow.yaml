@@ -12,7 +12,10 @@ additionalPrometheusRulesMap:
               group_name: etcd-grpc-requests-slow
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": 99th percentile of gRPC requests is {{ $value }}s on etcd instance {{ $labels.instance }} for {{ $labels.grpc_method }} method.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": 99th percentile of gRPC requests is {{ $value }}s on etcd
+                instance {{ $labels.instance }} for {{ $labels.grpc_method }} method. This warning alert fires
+                after 10m.
               summary: etcd grpc requests are slow
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url
@@ -25,7 +28,10 @@ additionalPrometheusRulesMap:
               group_name: etcd-grpc-requests-slow
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": 99th percentile of gRPC requests is {{ $value }}s on etcd instance {{ $labels.instance }} for {{ $labels.grpc_method }} method.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": 99th percentile of gRPC requests is {{ $value }}s on etcd
+                instance {{ $labels.instance }} for {{ $labels.grpc_method }} method. This critical alert fires
+                after 15m.
               summary: etcd grpc requests are slow
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url

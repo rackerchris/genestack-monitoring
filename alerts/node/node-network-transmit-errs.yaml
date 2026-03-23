@@ -14,7 +14,9 @@ additionalPrometheusRulesMap:
               group_name: node-network-transmit-errs
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: '{{ $labels.instance }} interface {{ $labels.device }} has encountered {{ printf "%.0f" $value }} transmit errors in the last two minutes.'
+              description: >-
+                {{ $labels.instance }} interface {{ $labels.device }} has encountered {{ printf "%.0f" $value }}
+                transmit errors in the last two minutes.
               runbook_url: default_runbook_url
               summary: Network interface is reporting many transmit errors.
               dashboard_url: default_dashboard_url
@@ -29,7 +31,9 @@ additionalPrometheusRulesMap:
               group_name: node-network-transmit-errs
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: '{{ $labels.instance }} interface {{ $labels.device }} has encountered {{ printf "%.0f" $value }} transmit errors in the last two minutes.'
+              description: >-
+                {{ $labels.instance }} interface {{ $labels.device }} has encountered {{ printf "%.0f" $value }}
+                transmit errors in the last two minutes.
               runbook_url: default_runbook_url
               summary: Network interface is reporting many transmit errors.
               dashboard_url: default_dashboard_url

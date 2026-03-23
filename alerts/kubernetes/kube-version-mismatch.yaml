@@ -12,7 +12,9 @@ additionalPrometheusRulesMap:
               group_name: kube-version-mismatch
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: There are {{ $value }} different semantic versions of Kubernetes components running on cluster {{ $labels.cluster }}.
+              description: >-
+                There are {{ $value }} different semantic versions of Kubernetes components running on cluster
+                {{ $labels.cluster }}. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Different semantic versions of Kubernetes components running.
               dashboard_url: default_dashboard_url
@@ -25,7 +27,9 @@ additionalPrometheusRulesMap:
               group_name: kube-version-mismatch
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: There are {{ $value }} different semantic versions of Kubernetes components running on cluster {{ $labels.cluster }}.
+              description: >-
+                There are {{ $value }} different semantic versions of Kubernetes components running on cluster
+                {{ $labels.cluster }}. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Different semantic versions of Kubernetes components running.
               dashboard_url: default_dashboard_url

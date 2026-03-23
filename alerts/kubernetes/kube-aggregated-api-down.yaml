@@ -12,7 +12,10 @@ additionalPrometheusRulesMap:
               group_name: kube-aggregated-api-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m on cluster {{ $labels.cluster }}.
+              description: >-
+                Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value |
+                humanize }}% available over the last 10m on cluster {{ $labels.cluster }}. This warning alert
+                fires after 5m.
               runbook_url: default_runbook_url
               summary: Kubernetes aggregated API is down.
               dashboard_url: default_dashboard_url
@@ -25,7 +28,10 @@ additionalPrometheusRulesMap:
               group_name: kube-aggregated-api-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m on cluster {{ $labels.cluster }}.
+              description: >-
+                Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value |
+                humanize }}% available over the last 10m on cluster {{ $labels.cluster }}. This critical alert
+                fires after 15m.
               runbook_url: default_runbook_url
               summary: Kubernetes aggregated API is down.
               dashboard_url: default_dashboard_url

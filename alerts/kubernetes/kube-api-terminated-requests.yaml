@@ -12,7 +12,9 @@ additionalPrometheusRulesMap:
               group_name: kube-api-terminated-requests
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests on cluster {{ $labels.cluster }}.
+              description: >-
+                The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming
+                requests on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests.
               dashboard_url: default_dashboard_url
@@ -25,7 +27,9 @@ additionalPrometheusRulesMap:
               group_name: kube-api-terminated-requests
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests on cluster {{ $labels.cluster }}.
+              description: >-
+                The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming
+                requests on cluster {{ $labels.cluster }}. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests.
               dashboard_url: default_dashboard_url

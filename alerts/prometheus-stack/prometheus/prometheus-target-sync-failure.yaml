@@ -1,0 +1,33 @@
+additionalPrometheusRulesMap:
+  prometheus-target-sync-failure:
+    groups:
+    - name: prometheus-target-sync-failure
+      rules:
+      - alert: prometheus-target-sync-failure-warning
+        expr: increase(prometheus_target_sync_failed_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[30m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+          group_name: prometheus-target-sync-failure
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            {{ printf "%.0f" $value }} targets in Prometheus {{$labels.namespace}}/{{$labels.pod}} have
+            failed to sync because invalid configuration was supplied. This warning alert fires after 5m.
+          runbook_url: default_runbook_url
+          summary: Prometheus has failed to sync targets.
+          dashboard_url: default_dashboard_url
+      - alert: prometheus-target-sync-failure-critical
+        expr: increase(prometheus_target_sync_failed_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[30m]) > 0
+        for: 15m
+        labels:
+          severity: critical
+          group_name: prometheus-target-sync-failure
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            {{ printf "%.0f" $value }} targets in Prometheus {{$labels.namespace}}/{{$labels.pod}} have
+            failed to sync because invalid configuration was supplied. This critical alert fires after 15m.
+          runbook_url: default_runbook_url
+          summary: Prometheus has failed to sync targets.
+          dashboard_url: default_dashboard_url

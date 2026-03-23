@@ -18,7 +18,10 @@ additionalPrometheusRulesMap:
               group_name: node-raid-degraded
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: RAID array '{{ $labels.device }}' at {{ $labels.instance }} is in degraded state due to one or more disks failures. Number of spare drives is insufficient to fix issue automatically.
+              description: >-
+                RAID array '{{ $labels.device }}' at {{ $labels.instance }} is in degraded state due to one or
+                more disks failures. Number of spare drives is insufficient to fix issue automatically. This
+                warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: RAID Array is degraded.
               dashboard_url: default_dashboard_url
@@ -37,7 +40,10 @@ additionalPrometheusRulesMap:
               group_name: node-raid-degraded
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: RAID array '{{ $labels.device }}' at {{ $labels.instance }} is in degraded state due to one or more disks failures. Number of spare drives is insufficient to fix issue automatically.
+              description: >-
+                RAID array '{{ $labels.device }}' at {{ $labels.instance }} is in degraded state due to one or
+                more disks failures. Number of spare drives is insufficient to fix issue automatically. This
+                critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: RAID Array is degraded.
               dashboard_url: default_dashboard_url

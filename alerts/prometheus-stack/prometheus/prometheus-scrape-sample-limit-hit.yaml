@@ -1,0 +1,35 @@
+additionalPrometheusRulesMap:
+  prometheus-scrape-sample-limit-hit:
+    groups:
+    - name: prometheus-scrape-sample-limit-hit
+      rules:
+      - alert: prometheus-scrape-sample-limit-hit-warning
+        expr: increase(prometheus_target_scrapes_exceeded_sample_limit_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) > 0
+        for: 15m
+        labels:
+          severity: warning
+          group_name: prometheus-scrape-sample-limit-hit
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed {{ printf "%.0f" $value }} scrapes
+            in the last 5m because some targets exceeded the configured sample_limit. This warning alert
+            fires after 15m.
+          runbook_url: default_runbook_url
+          summary: Prometheus has failed scrapes that have exceeded the configured sample limit.
+          dashboard_url: default_dashboard_url
+      - alert: prometheus-scrape-sample-limit-hit-critical
+        expr: increase(prometheus_target_scrapes_exceeded_sample_limit_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) > 0
+        for: 30m
+        labels:
+          severity: critical
+          group_name: prometheus-scrape-sample-limit-hit
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed {{ printf "%.0f" $value }} scrapes
+            in the last 5m because some targets exceeded the configured sample_limit. This critical alert
+            fires after 30m.
+          runbook_url: default_runbook_url
+          summary: Prometheus has failed scrapes that have exceeded the configured sample limit.
+          dashboard_url: default_dashboard_url

@@ -12,7 +12,9 @@ additionalPrometheusRulesMap:
               group_name: etcd-members-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": members are down ({{ $value }}).'
+              description: >-
+                etcd cluster "{{ $labels.job }}": members are down ({{ $value }}). This warning alert fires
+                after 20m.
               summary: etcd cluster members are down.
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url
@@ -25,7 +27,9 @@ additionalPrometheusRulesMap:
               group_name: etcd-members-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": members are down ({{ $value }}).'
+              description: >-
+                etcd cluster "{{ $labels.job }}": members are down ({{ $value }}). This critical alert fires
+                after 30m.
               summary: etcd cluster members are down.
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url

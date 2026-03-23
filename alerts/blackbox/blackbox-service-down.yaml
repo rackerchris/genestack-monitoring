@@ -11,11 +11,8 @@ additionalPrometheusRulesMap:
           group_name: blackbox-service-down
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'Service probe has failed for more than two minutes.
-
-            LABELS = {{ $labels }}
-
-            '
+          description: >-
+            Service probe has failed for more than two minutes.
           runbook_url: default_runbook_url
           summary: Service probe has failed for more than two minutes on (instance {{ $labels.instance }})
           dashboard_url: default_dashboard_url
@@ -27,11 +24,8 @@ additionalPrometheusRulesMap:
           group_name: blackbox-service-down
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'Service probe has failed for more than two minutes.
-
-            LABELS = {{ $labels }}
-
-            '
+          description: >-
+            Service probe has failed for more than five minutes.
           runbook_url: default_runbook_url
-          summary: Service probe has failed for more than two minutes on (instance {{ $labels.instance }})
+          summary: Service probe has failed for more than five minutes on (instance {{ $labels.instance }})
           dashboard_url: default_dashboard_url

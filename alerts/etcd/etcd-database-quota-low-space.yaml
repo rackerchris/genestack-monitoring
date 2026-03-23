@@ -12,7 +12,10 @@ additionalPrometheusRulesMap:
               group_name: etcd-database-quota-low-space
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": database size exceeds the defined quota on etcd instance {{ $labels.instance }}, please defrag or increase the quota as the writes to etcd will be disabled when it is full.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": database size exceeds the defined quota on etcd instance {{
+                $labels.instance }}, please defrag or increase the quota as the writes to etcd will be disabled
+                when it is full. This warning alert fires after 10m.
               summary: etcd cluster database is running full.
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url
@@ -25,7 +28,10 @@ additionalPrometheusRulesMap:
               group_name: etcd-database-quota-low-space
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": database size exceeds the defined quota on etcd instance {{ $labels.instance }}, please defrag or increase the quota as the writes to etcd will be disabled when it is full.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": database size exceeds the defined quota on etcd instance {{
+                $labels.instance }}, please defrag or increase the quota as the writes to etcd will be disabled
+                when it is full. This critical alert fires after 15m.
               summary: etcd cluster database is running full.
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url

@@ -1,0 +1,41 @@
+additionalPrometheusRulesMap:
+  prometheus-bad-config:
+    groups:
+    - name: prometheus-bad-config
+      rules:
+      - alert: prometheus-bad-config-warning
+        expr: '# Without max_over_time, failed scrapes could create false negatives, see
+
+          # https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+          max_over_time(prometheus_config_last_reload_successful{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) == 0'
+        for: 10m
+        labels:
+          severity: warning
+          group_name: prometheus-bad-config
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration. This
+            warning alert fires after 10m.
+          runbook_url: default_runbook_url
+          summary: Failed Prometheus configuration reload.
+          dashboard_url: default_dashboard_url
+      - alert: prometheus-bad-config-critical
+        expr: '# Without max_over_time, failed scrapes could create false negatives, see
+
+          # https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+          max_over_time(prometheus_config_last_reload_successful{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) == 0'
+        for: 15m
+        labels:
+          severity: critical
+          group_name: prometheus-bad-config
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration. This
+            critical alert fires after 15m.
+          runbook_url: default_runbook_url
+          summary: Failed Prometheus configuration reload.
+          dashboard_url: default_dashboard_url

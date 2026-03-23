@@ -13,7 +13,9 @@ additionalPrometheusRulesMap:
               group_name: node-clock-not-synchronising
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Clock at {{ $labels.instance }} is not synchronising. Ensure NTP is configured on this host.
+              description: >-
+                Clock at {{ $labels.instance }} is not synchronising. Ensure NTP is configured on this host.
+                This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Clock not synchronising.
               dashboard_url: default_dashboard_url
@@ -28,7 +30,9 @@ additionalPrometheusRulesMap:
               group_name: node-clock-not-synchronising
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Clock at {{ $labels.instance }} is not synchronising. Ensure NTP is configured on this host.
+              description: >-
+                Clock at {{ $labels.instance }} is not synchronising. Ensure NTP is configured on this host.
+                This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Clock not synchronising.
               dashboard_url: default_dashboard_url

@@ -11,9 +11,9 @@ additionalPrometheusRulesMap:
           group_name: openstack-cinder-volume-status-error-counter
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'There are {{ $value }} Cinder volumes in error state.
-
-            LABELS: {{ $labels }}'
+          description: >-
+            There are {{ $value }} Cinder volumes in error state. LABELS: {{ $labels }}. This warning alert
+            fires after 1m.
           runbook_url: default_runbook_url
           summary: There are {{ $value }} Cinder volumes in error state
           dashboard_url: default_dashboard_url
@@ -25,9 +25,9 @@ additionalPrometheusRulesMap:
           group_name: openstack-cinder-volume-status-error-counter
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'There are {{ $value }} Cinder volumes in error state.
-
-            LABELS: {{ $labels }}'
+          description: >-
+            There are {{ $value }} Cinder volumes in error state. LABELS: {{ $labels }}. This critical alert
+            fires after 5m.
           runbook_url: default_runbook_url
           summary: There are {{ $value }} Cinder volumes in error state
           dashboard_url: default_dashboard_url

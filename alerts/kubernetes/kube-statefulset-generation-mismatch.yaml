@@ -14,7 +14,10 @@ additionalPrometheusRulesMap:
               group_name: kube-statefulset-generation-mismatch
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: StatefulSet generation for {{ $labels.namespace }}/{{ $labels.statefulset }} does not match, this indicates that the StatefulSet has failed but has not been rolled back on cluster {{ $labels.cluster }}.
+              description: >-
+                StatefulSet generation for {{ $labels.namespace }}/{{ $labels.statefulset }} does not match,
+                this indicates that the StatefulSet has failed but has not been rolled back on cluster {{
+                $labels.cluster }}. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: StatefulSet generation mismatch due to possible roll-back
               dashboard_url: default_dashboard_url
@@ -29,7 +32,10 @@ additionalPrometheusRulesMap:
               group_name: kube-statefulset-generation-mismatch
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: StatefulSet generation for {{ $labels.namespace }}/{{ $labels.statefulset }} does not match, this indicates that the StatefulSet has failed but has not been rolled back on cluster {{ $labels.cluster }}.
+              description: >-
+                StatefulSet generation for {{ $labels.namespace }}/{{ $labels.statefulset }} does not match,
+                this indicates that the StatefulSet has failed but has not been rolled back on cluster {{
+                $labels.cluster }}. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: StatefulSet generation mismatch due to possible roll-back
               dashboard_url: default_dashboard_url

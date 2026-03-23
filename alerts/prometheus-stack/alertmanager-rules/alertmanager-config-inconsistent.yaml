@@ -1,0 +1,33 @@
+additionalPrometheusRulesMap:
+  alertmanager-config-inconsistent:
+    groups:
+    - name: alertmanager-config-inconsistent
+      rules:
+      - alert: alertmanager-config-inconsistent-warning
+        expr: "count by (namespace,service,cluster) (\n  count_values by (namespace,service,cluster) (\"config_hash\", alertmanager_config_hash{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"})\n)\n!= 1"
+        for: 20m
+        labels:
+          severity: warning
+          group_name: alertmanager-config-inconsistent
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Alertmanager instances within the {{$labels.job}} cluster have different configurations. This
+            warning alert fires after 20m.
+          runbook_url: default_runbook_url
+          summary: Alertmanager instances within the same cluster have different configurations.
+          dashboard_url: default_dashboard_url
+      - alert: alertmanager-config-inconsistent-critical
+        expr: "count by (namespace,service,cluster) (\n  count_values by (namespace,service,cluster) (\"config_hash\", alertmanager_config_hash{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"})\n)\n!= 1"
+        for: 30m
+        labels:
+          severity: critical
+          group_name: alertmanager-config-inconsistent
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Alertmanager instances within the {{$labels.job}} cluster have different configurations. This
+            critical alert fires after 30m.
+          runbook_url: default_runbook_url
+          summary: Alertmanager instances within the same cluster have different configurations.
+          dashboard_url: default_dashboard_url

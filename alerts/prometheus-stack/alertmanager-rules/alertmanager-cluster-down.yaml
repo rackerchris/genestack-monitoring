@@ -1,0 +1,33 @@
+additionalPrometheusRulesMap:
+  alertmanager-cluster-down:
+    groups:
+    - name: alertmanager-cluster-down
+      rules:
+      - alert: alertmanager-cluster-down-warning
+        expr: "(\n  count by (namespace,service,cluster) (\n    avg_over_time(up{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}[5m]) < 0.5\n  )\n/\n  count by (namespace,service,cluster) (\n    up{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}\n  )\n)\n>= 0.5"
+        for: 5m
+        labels:
+          severity: warning
+          group_name: alertmanager-cluster-down
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            {{ $value | humanizePercentage }} of Alertmanager instances within the {{$labels.job}} cluster
+            have been up for less than half of the last 5m. This warning alert fires after 5m.
+          runbook_url: default_runbook_url
+          summary: Half or more of the Alertmanager instances within the same cluster are down.
+          dashboard_url: default_dashboard_url
+      - alert: alertmanager-cluster-down-critical
+        expr: "(\n  count by (namespace,service,cluster) (\n    avg_over_time(up{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}[5m]) < 0.5\n  )\n/\n  count by (namespace,service,cluster) (\n    up{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}\n  )\n)\n>= 0.5"
+        for: 15m
+        labels:
+          severity: critical
+          group_name: alertmanager-cluster-down
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            {{ $value | humanizePercentage }} of Alertmanager instances within the {{$labels.job}} cluster
+            have been up for less than half of the last 5m. This critical alert fires after 15m.
+          runbook_url: default_runbook_url
+          summary: Half or more of the Alertmanager instances within the same cluster are down.
+          dashboard_url: default_dashboard_url

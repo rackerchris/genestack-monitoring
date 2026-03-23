@@ -18,7 +18,11 @@ additionalPrometheusRulesMap:
               group_name: kube-persistent-volume-filling-up
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Based on recent sampling, the PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} {{ with $labels.cluster -}} on Cluster {{ . }} {{- end }} is expected to fill up within four days. Currently {{ $value | humanizePercentage }} is available.
+              description: >-
+                Based on recent sampling, the PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in
+                Namespace {{ $labels.namespace }} {{ with $labels.cluster -}} on Cluster {{ . }} {{- end }} is
+                expected to fill up within four days. Currently {{ $value | humanizePercentage }} is available.
+                This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: PersistentVolume is filling up.
               dashboard_url: default_dashboard_url
@@ -37,7 +41,11 @@ additionalPrometheusRulesMap:
               group_name: kube-persistent-volume-filling-up
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Based on recent sampling, the PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} {{ with $labels.cluster -}} on Cluster {{ . }} {{- end }} is expected to fill up within four days. Currently {{ $value | humanizePercentage }} is available.
+              description: >-
+                Based on recent sampling, the PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in
+                Namespace {{ $labels.namespace }} {{ with $labels.cluster -}} on Cluster {{ . }} {{- end }} is
+                expected to fill up within four days. Currently {{ $value | humanizePercentage }} is available.
+                This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: PersistentVolume is filling up.
               dashboard_url: default_dashboard_url

@@ -11,11 +11,9 @@ additionalPrometheusRulesMap:
           group_name: openstack-glance-images-stuck-failure-state
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'There are images stuck in a failure state for a prolonged period
-
-            that need to be cleaned up.
-
-            '
+          description: >-
+            There are images stuck in a failure state for a prolonged period that need to be cleaned up.
+            This warning alert fires after 15m.
           runbook_url: default_runbook_url
           summary: Images stuck in failure state for a prolonged period
           dashboard_url: default_dashboard_url
@@ -27,11 +25,9 @@ additionalPrometheusRulesMap:
           group_name: openstack-glance-images-stuck-failure-state
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'There are images stuck in a failure state for a prolonged period
-
-            that need to be cleaned up.
-
-            '
+          description: >-
+            There are images stuck in a failure state for a prolonged period that need to be cleaned up.
+            This critical alert fires after 30m.
           runbook_url: default_runbook_url
           summary: Images stuck in failure state for a prolonged period
           dashboard_url: default_dashboard_url

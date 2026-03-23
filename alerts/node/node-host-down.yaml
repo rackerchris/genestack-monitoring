@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: node-host-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: "Host {{ $labels.instance }} is down or OpenTelemetry collector is not reporting metrics for 5 minutes."
+              description: >-
+                Host {{ $labels.instance }} is down or OpenTelemetry collector is not reporting metrics for 5
+                minutes.
               runbook_url: default_runbook_url
               summary: Host is down or metrics collection has stopped.
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: node-host-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: "Host {{ $labels.instance }} is down or OpenTelemetry collector is not reporting metrics for 15 minutes."
+              description: >-
+                Host {{ $labels.instance }} is down or OpenTelemetry collector is not reporting metrics for 15
+                minutes.
               runbook_url: default_runbook_url
               summary: Host is down or metrics collection has stopped.
               dashboard_url: default_dashboard_url

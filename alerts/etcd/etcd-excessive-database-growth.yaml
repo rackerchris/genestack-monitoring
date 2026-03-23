@@ -12,7 +12,10 @@ additionalPrometheusRulesMap:
               group_name: etcd-excessive-database-growth
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": Predicting running out of disk space in the next four hours, based on write observations within the past four hours on etcd instance {{ $labels.instance }}, please check as it might be disruptive.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": Predicting running out of disk space in the next four hours,
+                based on write observations within the past four hours on etcd instance {{ $labels.instance }},
+                please check as it might be disruptive. This warning alert fires after 10m.
               summary: etcd cluster database growing very fast.
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url
@@ -25,7 +28,10 @@ additionalPrometheusRulesMap:
               group_name: etcd-excessive-database-growth
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'etcd cluster "{{ $labels.job }}": Predicting running out of disk space in the next four hours, based on write observations within the past four hours on etcd instance {{ $labels.instance }}, please check as it might be disruptive.'
+              description: >-
+                etcd cluster "{{ $labels.job }}": Predicting running out of disk space in the next four hours,
+                based on write observations within the past four hours on etcd instance {{ $labels.instance }},
+                please check as it might be disruptive. This critical alert fires after 15m.
               summary: etcd cluster database growing very fast.
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url

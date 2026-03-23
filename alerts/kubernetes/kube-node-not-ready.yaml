@@ -16,7 +16,8 @@ additionalPrometheusRulesMap:
               group_name: kube-node-not-ready
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: "{{ $labels.node }} has been unready for more than 5 minutes on cluster {{ $labels.cluster }}."
+              description: >-
+                {{ $labels.node }} has been unready for more than 5 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Node is not ready.
               dashboard_url: default_dashboard_url
@@ -33,7 +34,8 @@ additionalPrometheusRulesMap:
               group_name: kube-node-not-ready
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: "{{ $labels.node }} has been unready for more than 15 minutes on cluster {{ $labels.cluster }}."
+              description: >-
+                {{ $labels.node }} has been unready for more than 15 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Node is not ready.
               dashboard_url: default_dashboard_url

@@ -11,13 +11,8 @@ additionalPrometheusRulesMap:
           group_name: mariadb-slow-queries
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'MySQL server has some new slow queries.
-
-            VALUE = {{ $value }}
-
-            LABELS = {{ $labels }}
-
-            '
+          description: >-
+            MySQL server has some new slow queries. This warning alert fires after 2m.
           runbook_url: default_runbook_url
           summary: MySQL slow queries (instance {{ $labels.instance }})
           dashboard_url: default_dashboard_url
@@ -29,13 +24,8 @@ additionalPrometheusRulesMap:
           group_name: mariadb-slow-queries
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'MySQL server has some new slow queries.
-
-            VALUE = {{ $value }}
-
-            LABELS = {{ $labels }}
-
-            '
+          description: >-
+            MySQL server has some new slow queries. This critical alert fires after 5m.
           runbook_url: default_runbook_url
           summary: MySQL slow queries (instance {{ $labels.instance }})
           dashboard_url: default_dashboard_url

@@ -11,9 +11,8 @@ additionalPrometheusRulesMap:
           group_name: ovn-backup-disk-usage
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'OVN backup volume >= 80% disk usage.
-
-            '
+          description: >-
+            OVN backup volume >= 80% disk usage.
           runbook_url: default_runbook_url
           summary: OVN backup volume >= 80% disk usage
           dashboard_url: default_dashboard_url
@@ -25,9 +24,8 @@ additionalPrometheusRulesMap:
           group_name: ovn-backup-disk-usage
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'OVN backup volume >= 90% disk usage.
-
-            '
+          description: >-
+            OVN backup volume >= 90% disk usage.
           runbook_url: default_runbook_url
           summary: OVN backup volume >= 90% disk usage
           dashboard_url: default_dashboard_url

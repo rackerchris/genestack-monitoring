@@ -16,7 +16,10 @@ additionalPrometheusRulesMap:
               group_name: kube-node-pressure
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: "{{ $labels.node }} on cluster {{ $labels.cluster }} has active Condition {{ $labels.condition }}. This is caused by resource usage exceeding eviction thresholds."
+              description: >-
+                {{ $labels.node }} on cluster {{ $labels.cluster }} has active Condition {{ $labels.condition
+                }}. This is caused by resource usage exceeding eviction thresholds. This warning alert fires
+                after 5m.
               runbook_url: default_runbook_url
               summary: Node has as active Condition.
               dashboard_url: default_dashboard_url
@@ -33,7 +36,10 @@ additionalPrometheusRulesMap:
               group_name: kube-node-pressure
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: "{{ $labels.node }} on cluster {{ $labels.cluster }} has active Condition {{ $labels.condition }}. This is caused by resource usage exceeding eviction thresholds."
+              description: >-
+                {{ $labels.node }} on cluster {{ $labels.cluster }} has active Condition {{ $labels.condition
+                }}. This is caused by resource usage exceeding eviction thresholds. This critical alert fires
+                after 15m.
               runbook_url: default_runbook_url
               summary: Node has as active Condition.
               dashboard_url: default_dashboard_url

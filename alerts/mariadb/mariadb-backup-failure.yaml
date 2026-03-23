@@ -15,9 +15,8 @@ additionalPrometheusRulesMap:
           group_name: mariadb-backup-failure
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'Last MariaDB backup not successful within 1 hour of scheduled run.
-
-            '
+          description: >-
+            Last MariaDB backup not successful within 1 hour of scheduled run.
           runbook_url: default_runbook_url
           summary: Last MariaDB backup not successful within 1 hour of scheduled run
           dashboard_url: default_dashboard_url
@@ -33,9 +32,8 @@ additionalPrometheusRulesMap:
           group_name: mariadb-backup-failure
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: 'Second successive MariaDB backup not successful within 1 hour of scheduled run.
-
-            '
+          description: >-
+            Second successive MariaDB backup not successful within 1 hour of scheduled run.
           runbook_url: default_runbook_url
           summary: Second successive MariaDB backup not successful within 1 hour of scheduled run
           dashboard_url: default_dashboard_url

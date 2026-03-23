@@ -14,7 +14,10 @@ additionalPrometheusRulesMap:
               group_name: kube-pdb-not-enough-healthy-pods
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: PDB {{ $labels.cluster }}/{{ $labels.namespace }}/{{ $labels.poddisruptionbudget }} expects {{ $value }} more healthy pods. The desired number of healthy pods has not been met for at least 5 minutes.
+              description: >-
+                PDB {{ $labels.cluster }}/{{ $labels.namespace }}/{{ $labels.poddisruptionbudget }} expects {{
+                $value }} more healthy pods. The desired number of healthy pods has not been met for at least 5
+                minutes.
               runbook_url: default_runbook_url
               summary: PDB does not have enough healthy pods.
               dashboard_url: default_dashboard_url
@@ -29,7 +32,10 @@ additionalPrometheusRulesMap:
               group_name: kube-pdb-not-enough-healthy-pods
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: PDB {{ $labels.cluster }}/{{ $labels.namespace }}/{{ $labels.poddisruptionbudget }} expects {{ $value }} more healthy pods. The desired number of healthy pods has not been met for at least 15 minutes.
+              description: >-
+                PDB {{ $labels.cluster }}/{{ $labels.namespace }}/{{ $labels.poddisruptionbudget }} expects {{
+                $value }} more healthy pods. The desired number of healthy pods has not been met for at least 15
+                minutes.
               runbook_url: default_runbook_url
               summary: PDB does not have enough healthy pods.
               dashboard_url: default_dashboard_url

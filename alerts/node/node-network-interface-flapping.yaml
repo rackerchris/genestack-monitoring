@@ -11,7 +11,9 @@ additionalPrometheusRulesMap:
               group_name: node-network-interface-flapping
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Network interface "{{ $labels.device }}" changing its up status often on node-exporter {{ $labels.namespace }}/{{ $labels.pod }}
+              description: >-
+                Network interface "{{ $labels.device }}" changing its up status often on node-exporter {{
+                $labels.namespace }}/{{ $labels.pod }}
               runbook_url: default_runbook_url
               summary: Network interface is often changing its status
               dashboard_url: default_dashboard_url
@@ -23,7 +25,9 @@ additionalPrometheusRulesMap:
               group_name: node-network-interface-flapping
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Network interface "{{ $labels.device }}" changing its up status often on node-exporter {{ $labels.namespace }}/{{ $labels.pod }}
+              description: >-
+                Network interface "{{ $labels.device }}" changing its up status often on node-exporter {{
+                $labels.namespace }}/{{ $labels.pod }}
               runbook_url: default_runbook_url
               summary: Network interface is often changing its status
               dashboard_url: default_dashboard_url

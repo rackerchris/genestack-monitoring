@@ -14,7 +14,9 @@ additionalPrometheusRulesMap:
               group_name: node-raid-disk-failure
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: At least one device in RAID array at {{ $labels.instance }} failed. Array '{{ $labels.device }}' needs attention and possibly a disk swap.
+              description: >-
+                At least one device in RAID array at {{ $labels.instance }} failed. Array '{{ $labels.device }}'
+                needs attention and possibly a disk swap. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Failed device in RAID array.
               dashboard_url: default_dashboard_url
@@ -29,7 +31,9 @@ additionalPrometheusRulesMap:
               group_name: node-raid-disk-failure
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: At least one device in RAID array at {{ $labels.instance }} failed. Array '{{ $labels.device }}' needs attention and possibly a disk swap.
+              description: >-
+                At least one device in RAID array at {{ $labels.instance }} failed. Array '{{ $labels.device }}'
+                needs attention and possibly a disk swap. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Failed device in RAID array.
               dashboard_url: default_dashboard_url

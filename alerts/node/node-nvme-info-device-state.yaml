@@ -14,13 +14,9 @@ additionalPrometheusRulesMap:
           coreDeviceID: '{{ $labels.rackspace_com_coreDeviceID }}'
           node: '{{ $labels.instance }}'
         annotations:
-          description: '{{ $labels.name }}
-
-            Device: {{ $labels.device }}
-
-            State:{{ $labels.state }}
-
-            LABELS: {{ $labels }}'
+          description: >-
+            {{ $labels.name }} Device: {{ $labels.device }} State:{{ $labels.state }} LABELS: {{ $labels }}.
+            This warning alert fires after 1m.
           runbook_url: default_runbook_url
           summary: NVME device has failed. state!=live
           dashboard_url: default_dashboard_url
@@ -35,13 +31,9 @@ additionalPrometheusRulesMap:
           coreDeviceID: '{{ $labels.rackspace_com_coreDeviceID }}'
           node: '{{ $labels.instance }}'
         annotations:
-          description: '{{ $labels.name }}
-
-            Device: {{ $labels.device }}
-
-            State:{{ $labels.state }}
-
-            LABELS: {{ $labels }}'
+          description: >-
+            {{ $labels.name }} Device: {{ $labels.device }} State:{{ $labels.state }} LABELS: {{ $labels }}.
+            This critical alert fires after 5m.
           runbook_url: default_runbook_url
           summary: NVME device has failed. state!=live
           dashboard_url: default_dashboard_url

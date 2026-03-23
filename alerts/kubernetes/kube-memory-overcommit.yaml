@@ -18,7 +18,9 @@ additionalPrometheusRulesMap:
               group_name: kube-memory-overcommit
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure.
+              description: >-
+                Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value |
+                humanize }} bytes and cannot tolerate node failure. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Cluster has overcommitted memory resource requests.
               dashboard_url: default_dashboard_url
@@ -37,7 +39,9 @@ additionalPrometheusRulesMap:
               group_name: kube-memory-overcommit
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure.
+              description: >-
+                Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value |
+                humanize }} bytes and cannot tolerate node failure. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Cluster has overcommitted memory resource requests.
               dashboard_url: default_dashboard_url

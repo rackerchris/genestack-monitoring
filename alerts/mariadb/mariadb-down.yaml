@@ -11,7 +11,8 @@ additionalPrometheusRulesMap:
           group_name: mariadb-down
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: MariaDB {{$labels.job}} on {{$labels.instance}} is not up.
+          description: >-
+            MariaDB {{$labels.job}} on {{$labels.instance}} is not up. This warning alert fires after 5m.
           runbook_url: default_runbook_url
           summary: MariaDB not up and running, immediate attention is required.
           dashboard_url: default_dashboard_url
@@ -23,7 +24,8 @@ additionalPrometheusRulesMap:
           group_name: mariadb-down
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
-          description: MariaDB {{$labels.job}} on {{$labels.instance}} is not up.
+          description: >-
+            MariaDB {{$labels.job}} on {{$labels.instance}} is not up. This critical alert fires after 15m.
           runbook_url: default_runbook_url
           summary: MariaDB not up and running, immediate attention is required.
           dashboard_url: default_dashboard_url

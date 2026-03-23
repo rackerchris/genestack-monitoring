@@ -1,0 +1,33 @@
+additionalPrometheusRulesMap:
+  alertmanager-members-inconsistent:
+    groups:
+    - name: alertmanager-members-inconsistent
+      rules:
+      - alert: alertmanager-members-inconsistent-warning
+        expr: "# Without max_over_time, failed scrapes could create false negatives, see\n# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.\n  max_over_time(alertmanager_cluster_members{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}[5m])\n< on (namespace,service,cluster) group_left\n  count by (namespace,service,cluster) (max_over_time(alertmanager_cluster_members{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}[5m]))"
+        for: 15m
+        labels:
+          severity: warning
+          group_name: alertmanager-members-inconsistent
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Alertmanager {{ $labels.namespace }}/{{ $labels.pod}} has only found {{ $value }} members of the
+            {{$labels.job}} cluster. This warning alert fires after 15m.
+          runbook_url: default_runbook_url
+          summary: A member of an Alertmanager cluster has not found all other cluster members.
+          dashboard_url: default_dashboard_url
+      - alert: alertmanager-members-inconsistent-critical
+        expr: "# Without max_over_time, failed scrapes could create false negatives, see\n# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.\n  max_over_time(alertmanager_cluster_members{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}[5m])\n< on (namespace,service,cluster) group_left\n  count by (namespace,service,cluster) (max_over_time(alertmanager_cluster_members{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}[5m]))"
+        for: 30m
+        labels:
+          severity: critical
+          group_name: alertmanager-members-inconsistent
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Alertmanager {{ $labels.namespace }}/{{ $labels.pod}} has only found {{ $value }} members of the
+            {{$labels.job}} cluster. This critical alert fires after 30m.
+          runbook_url: default_runbook_url
+          summary: A member of an Alertmanager cluster has not found all other cluster members.
+          dashboard_url: default_dashboard_url

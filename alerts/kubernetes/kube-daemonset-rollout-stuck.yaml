@@ -22,7 +22,9 @@ additionalPrometheusRulesMap:
               group_name: kube-daemonset-rollout-stuck
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not finished or progressed for at least 5 minutes on cluster {{ $labels.cluster }}.
+              description: >-
+                DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not finished or progressed for at
+                least 5 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: DaemonSet rollout is stuck.
               dashboard_url: default_dashboard_url
@@ -45,7 +47,9 @@ additionalPrometheusRulesMap:
               group_name: kube-daemonset-rollout-stuck
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not finished or progressed for at least 15 minutes on cluster {{ $labels.cluster }}.
+              description: >-
+                DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not finished or progressed for at
+                least 15 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: DaemonSet rollout is stuck.
               dashboard_url: default_dashboard_url

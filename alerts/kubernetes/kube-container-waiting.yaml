@@ -13,7 +13,10 @@ additionalPrometheusRulesMap:
               group_name: kube-container-waiting
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 5 minutes. (reason: "{{ $labels.reason }}") on cluster {{ $labels.cluster }}.'
+              description: >-
+                pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}}
+                has been in waiting state for longer than 5 minutes. (reason: "{{ $labels.reason }}") on cluster
+                {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Pod container waiting longer than 5 minutes
               dashboard_url: default_dashboard_url
@@ -27,7 +30,10 @@ additionalPrometheusRulesMap:
               group_name: kube-container-waiting
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: 'pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 15 minutes. (reason: "{{ $labels.reason }}") on cluster {{ $labels.cluster }}.'
+              description: >-
+                pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}}
+                has been in waiting state for longer than 15 minutes. (reason: "{{ $labels.reason }}") on
+                cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Pod container waiting longer than 15 minutes
               dashboard_url: default_dashboard_url

@@ -11,7 +11,8 @@ additionalPrometheusRulesMap:
               group_name: kube-proxy-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: KubeProxy has disappeared from Prometheus target discovery.
+              description: >-
+                KubeProxy has disappeared from Prometheus target discovery. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Target disappeared from Prometheus target discovery.
               dashboard_url: default_dashboard_url
@@ -23,7 +24,8 @@ additionalPrometheusRulesMap:
               group_name: kube-proxy-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
-              description: KubeProxy has disappeared from Prometheus target discovery.
+              description: >-
+                KubeProxy has disappeared from Prometheus target discovery. This critical alert fires after 15m.
               runbook_url: default_runbook_url
               summary: Target disappeared from Prometheus target discovery.
               dashboard_url: default_dashboard_url

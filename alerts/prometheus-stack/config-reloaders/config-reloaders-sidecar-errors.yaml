@@ -1,0 +1,35 @@
+additionalPrometheusRulesMap:
+  config-reloaders-sidecar-errors:
+    groups:
+    - name: config-reloaders-sidecar-errors
+      rules:
+      - alert: config-reloaders-sidecar-errors-warning
+        expr: max_over_time(reloader_last_reload_successful{namespace=~".+"}[5m]) == 0
+        for: 10m
+        labels:
+          severity: warning
+          group_name: config-reloaders-sidecar-errors
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Errors encountered while the {{$labels.pod}} config-reloader sidecar attempts to sync config in
+            {{$labels.namespace}} namespace. As a result, configuration for service running in
+            {{$labels.pod}} may be stale and cannot be updated anymore. This warning alert fires after 10m.
+          runbook_url: default_runbook_url
+          summary: config-reloader sidecar has not had a successful reload for 10m
+          dashboard_url: default_dashboard_url
+      - alert: config-reloaders-sidecar-errors-critical
+        expr: max_over_time(reloader_last_reload_successful{namespace=~".+"}[5m]) == 0
+        for: 15m
+        labels:
+          severity: critical
+          group_name: config-reloaders-sidecar-errors
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+        annotations:
+          description: >-
+            Errors encountered while the {{$labels.pod}} config-reloader sidecar attempts to sync config in
+            {{$labels.namespace}} namespace. As a result, configuration for service running in
+            {{$labels.pod}} may be stale and cannot be updated anymore. This critical alert fires after 15m.
+          runbook_url: default_runbook_url
+          summary: config-reloader sidecar has not had a successful reload for 10m
+          dashboard_url: default_dashboard_url
