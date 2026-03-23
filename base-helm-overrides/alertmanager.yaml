@@ -87,6 +87,53 @@ inhibit_rules:
       - job
       - instance
 
+  # When a Kubernetes critical alert fires, suppress the warning for the same target.
+  - source_match:
+      severity: critical
+    source_match_re:
+      group_name: ^(kube-.+|kubelet-.+|cpu-throttling-high)$
+    target_match:
+      severity: warning
+    target_match_re:
+      group_name: ^(kube-.+|kubelet-.+|cpu-throttling-high)$
+    equal:
+      - cluster
+      - job
+      - instance
+      - namespace
+      - node
+      - pod
+      - container
+      - persistentvolumeclaim
+      - daemonset
+      - deployment
+      - statefulset
+      - horizontalpodautoscaler
+      - replicaset
+      - endpoint
+      - service
+      - quota
+      - resourcequota
+
+  # When a node critical alert fires, suppress the warning for the same host.
+  - source_match:
+      severity: critical
+    source_match_re:
+      group_name: ^node-.+$
+    target_match:
+      severity: warning
+    target_match_re:
+      group_name: ^node-.+$
+    equal:
+      - cluster
+      - job
+      - instance
+      - node_hostname
+      - device
+      - mountpoint
+      - interface
+      - name
+
   # When a promoted node critical alert fires, suppress the warning for the same host.
   - source_match:
       severity: critical
