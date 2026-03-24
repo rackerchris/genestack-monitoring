@@ -30,7 +30,7 @@ additionalPrometheusRulesMap:
               or ( node_timex_offset_seconds{job="otelcol-hostmetrics"} < -0.05
 
               and deriv(node_timex_offset_seconds{job="otelcol-hostmetrics"}[5m]) <= 0 )
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-clock-skew-detected
@@ -38,7 +38,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Clock at {{ $labels.instance }} is out of sync by more than 0.05s. Ensure NTP is configured
-                correctly on this host. This critical alert fires after 15m.
+                correctly on this host. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Clock skew detected.
               dashboard_url: default_dashboard_url

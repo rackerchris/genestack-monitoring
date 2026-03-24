@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
           dashboard_url: default_dashboard_url
       - alert: prometheus-tsdb-reloads-failing-critical
         expr: increase(prometheus_tsdb_reloads_failures_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[3h]) > 0
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: prometheus-tsdb-reloads-failing
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
         annotations:
           description: >-
             Prometheus {{$labels.namespace}}/{{$labels.pod}} has detected {{$value | humanize}} reload
-            failures over the last 3h. This critical alert fires after 15m.
+            failures over the last 3h. This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: Prometheus has issues reloading blocks from disk.
           dashboard_url: default_dashboard_url

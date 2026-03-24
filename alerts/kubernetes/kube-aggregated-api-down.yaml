@@ -22,7 +22,7 @@ additionalPrometheusRulesMap:
           - alert: kube-aggregated-api-down-critical
             expr: >-
               (1 - max by (name, namespace, cluster)(avg_over_time(aggregator_unavailable_apiservice{job="apiserver"}[10m]))) * 100 < 85
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-aggregated-api-down
@@ -30,8 +30,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value |
-                humanize }}% available over the last 10m on cluster {{ $labels.cluster }}. This critical alert
-                fires after 15m.
+                humanize }}% available over the last 10m on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Kubernetes aggregated API is down.
               dashboard_url: default_dashboard_url

@@ -55,7 +55,7 @@ additionalPrometheusRulesMap:
           == 0
 
           '
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: rabbitmq-no-majority-of-nodes-ready
@@ -65,7 +65,7 @@ additionalPrometheusRulesMap:
           description: >-
             Only `{{ $value }}` replicas are ready in StatefulSet `{{ $labels.statefulset }}` of RabbitMQ
             cluster `{{ $labels.label_app_kubernetes_io_name }}` in namespace `{{ $labels.namespace }}`.
-            This critical alert fires after 15m.
+            This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: 'No majority of nodes have been ready for the last 5 minutes.
 

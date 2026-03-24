@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: node-textfile-collector-scrape-error-critical
             expr: node_textfile_scrape_error{job="otelcol-hostmetrics"} == 1
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-textfile-collector-scrape-error
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Node Exporter text file collector on {{ $labels.instance }} failed to scrape. This critical
-                alert fires after 15m.
+                alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Node Exporter text file collector failed to scrape.
               dashboard_url: default_dashboard_url

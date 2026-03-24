@@ -19,14 +19,14 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: node-host-down-critical
             expr: up{job="otelcol-hostmetrics"} == 0
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-host-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                Host {{ $labels.instance }} is down or OpenTelemetry collector is not reporting metrics for 15
+                Host {{ $labels.instance }} is down or OpenTelemetry collector is not reporting metrics for 10
                 minutes.
               runbook_url: default_runbook_url
               summary: Host is down or metrics collection has stopped.

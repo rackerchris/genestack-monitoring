@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
           dashboard_url: default_dashboard_url
       - alert: prometheus-out-of-order-timestamps-critical
         expr: rate(prometheus_target_scrapes_sample_out_of_order_total{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) > 0
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: prometheus-out-of-order-timestamps
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
         annotations:
           description: >-
             Prometheus {{$labels.namespace}}/{{$labels.pod}} is dropping {{ printf "%.4g" $value  }}
-            samples/s with timestamps arriving out of order. This critical alert fires after 15m.
+            samples/s with timestamps arriving out of order. This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: Prometheus drops samples with out-of-order timestamps.
           dashboard_url: default_dashboard_url

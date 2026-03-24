@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
           dashboard_url: default_dashboard_url
       - alert: prometheus-operator-reconcile-errors-critical
         expr: (sum by (cluster,controller,namespace) (rate(prometheus_operator_reconcile_errors_total{job="kube-prometheus-stack-operator",namespace="prometheus"}[5m]))) / (sum by (cluster,controller,namespace) (rate(prometheus_operator_reconcile_operations_total{job="kube-prometheus-stack-operator",namespace="prometheus"}[5m]))) > 0.1
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: prometheus-operator-reconcile-errors
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
         annotations:
           description: >-
             {{ $value | humanizePercentage }} of reconciling operations failed for {{ $labels.controller }}
-            controller in {{ $labels.namespace }} namespace. This critical alert fires after 15m.
+            controller in {{ $labels.namespace }} namespace. This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: Errors while reconciling objects.
           dashboard_url: default_dashboard_url

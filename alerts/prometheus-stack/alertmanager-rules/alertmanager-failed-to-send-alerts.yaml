@@ -20,7 +20,7 @@ additionalPrometheusRulesMap:
           dashboard_url: default_dashboard_url
       - alert: alertmanager-failed-to-send-alerts-critical
         expr: "(\n  rate(alertmanager_notifications_failed_total{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}[15m])\n/\n  ignoring (reason) group_left rate(alertmanager_notifications_total{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}[15m])\n)\n> 0.01"
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: alertmanager-failed-to-send-alerts
@@ -28,8 +28,7 @@ additionalPrometheusRulesMap:
         annotations:
           description: >-
             Alertmanager {{ $labels.namespace }}/{{ $labels.pod}} failed to send {{ $value |
-            humanizePercentage }} of notifications to {{ $labels.integration }}. This critical alert fires
-            after 15m.
+            humanizePercentage }} of notifications to {{ $labels.integration }}. This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: An Alertmanager instance failed to send notifications.
           dashboard_url: default_dashboard_url

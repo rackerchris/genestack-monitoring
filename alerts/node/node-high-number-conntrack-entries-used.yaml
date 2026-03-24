@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: node-high-number-conntrack-entries-used-critical
             expr: (system_linux_conntrack_count{job="otelcol-hostmetrics"} / system_linux_conntrack_max{job="otelcol-hostmetrics"}) > 0.75
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-high-number-conntrack-entries-used
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 {{ $labels.instance }} {{ $value | humanizePercentage }} of conntrack entries are used. This
-                critical alert fires after 15m.
+                critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Number of conntrack are getting close to the limit.
               dashboard_url: default_dashboard_url

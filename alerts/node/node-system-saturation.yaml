@@ -26,14 +26,14 @@ additionalPrometheusRulesMap:
               system_cpu_load_average_1m{job="otelcol-hostmetrics"} / count without (cpu, mode) (system_cpu_time_seconds_total{job="otelcol-hostmetrics",
 
               mode="idle"}) > 2
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-system-saturation
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                System load per core at {{ $labels.instance }} has been above 2 for the last 15 minutes, is
+                System load per core at {{ $labels.instance }} has been above 2 for the last 10 minutes, is
                 currently at {{ printf "%.2f" $value }}. This might indicate this instance resources saturation
                 and can cause it becoming unresponsive.
               runbook_url: default_runbook_url

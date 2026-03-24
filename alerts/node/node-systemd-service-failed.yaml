@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: node-systemd-service-failed-critical
             expr: node_systemd_unit_state{job="otelcol-hostmetrics", state="failed"} == 1
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-systemd-service-failed
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Systemd service {{ $labels.name }} has entered failed state at {{ $labels.instance }}. This
-                critical alert fires after 15m.
+                critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Systemd service has entered failed state.
               dashboard_url: default_dashboard_url

@@ -22,7 +22,7 @@ additionalPrometheusRulesMap:
           - alert: etcd-high-number-of-leader-changes-critical
             expr: >-
               increase((max without (instance, pod) (etcd_server_leader_changes_seen_total{job=~".*etcd.*"}) or 0 * absent(etcd_server_leader_changes_seen_total{job=~".*etcd.*"}))[15m:1m]) >= 4
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: etcd-high-number-of-leader-changes
@@ -31,7 +31,7 @@ additionalPrometheusRulesMap:
               description: >-
                 etcd cluster "{{ $labels.job }}": {{ $value }} leader changes within the last 15 minutes.
                 Frequent elections may be a sign of insufficient resources, high network latency, or disruptions
-                by other components and should be investigated. This critical alert fires after 15m.
+                by other components and should be investigated. This critical alert fires after 10m.
               summary: etcd cluster has high number of leader changes.
               runbook_url: default_runbook_url
               dashboard_url: default_dashboard_url

@@ -21,7 +21,7 @@ additionalPrometheusRulesMap:
           - alert: kube-pod-container-restarts-critical
             expr: >-
               sum by (namespace, pod, container) (increase(kube_pod_container_status_restarts_total{pod_template_hash=""}[15m])) > 5
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-pod-container-restarts

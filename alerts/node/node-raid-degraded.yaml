@@ -34,7 +34,7 @@ additionalPrometheusRulesMap:
               (node_md_disks{state="active",job="otelcol-hostmetrics",device=~"(/dev/)?(mmcblk.p.+|nvme.+|rbd.+|sd.+|vd.+|xvd.+|dm-.+|md.+|dasd.+)"})
 
               > 0
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-raid-degraded
@@ -43,7 +43,7 @@ additionalPrometheusRulesMap:
               description: >-
                 RAID array '{{ $labels.device }}' at {{ $labels.instance }} is in degraded state due to one or
                 more disks failures. Number of spare drives is insufficient to fix issue automatically. This
-                critical alert fires after 15m.
+                critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: RAID Array is degraded.
               dashboard_url: default_dashboard_url

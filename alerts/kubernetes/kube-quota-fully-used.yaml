@@ -21,7 +21,7 @@ additionalPrometheusRulesMap:
           - alert: kube-quota-fully-used-critical
             expr: >-
               k8s.resource_quota.used{job="otelcol-k8scluster"} / ignoring(instance, job) (k8s.resource_quota.hard_limit{job="otelcol-k8scluster"} > 0) == 1
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-quota-fully-used
@@ -29,7 +29,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{
-                $labels.resource }} quota on cluster {{ $labels.cluster }}. This critical alert fires after 15m.
+                $labels.resource }} quota on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Namespace quota is fully used.
               dashboard_url: default_dashboard_url

@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
           dashboard_url: default_dashboard_url
       - alert: target-down-critical
         expr: 100 * (count(up == 0) BY (cluster, job, namespace, service) / count(up) BY (cluster, job, namespace, service)) > 10
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: target-down
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
         annotations:
           description: >-
             {{ printf "%.4g" $value }}% of the {{ $labels.job }}/{{ $labels.service }} targets in {{
-            $labels.namespace }} namespace are down. This critical alert fires after 15m.
+            $labels.namespace }} namespace are down. This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: One or more targets are unreachable.
           dashboard_url: default_dashboard_url

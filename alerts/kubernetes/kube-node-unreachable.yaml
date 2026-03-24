@@ -25,7 +25,7 @@ additionalPrometheusRulesMap:
           - alert: kube-node-unreachable-critical
             expr: >-
               (kube_node_spec_taint{job="kube-state-metrics",key="node.kubernetes.io/unreachable",effect="NoSchedule"} unless ignoring(key,value) kube_node_spec_taint{job="kube-state-metrics",key=~"ToBeDeletedByClusterAutoscaler|cloud.google.com/impending-node-termination|aws-node-termination-handler/spot-itn"}) == 1
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-node-unreachable
@@ -33,7 +33,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 {{ $labels.node }} is unreachable and some workloads may be rescheduled on cluster {{
-                $labels.cluster }}. This critical alert fires after 15m.
+                $labels.cluster }}. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Node is unreachable.
               dashboard_url: default_dashboard_url

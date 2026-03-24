@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: node-systemd-service-crash-looping-critical
             expr: increase(node_systemd_service_restart_total{job="otelcol-hostmetrics"}[5m]) > 2
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-systemd-service-crash-looping
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Systemd service {{ $labels.name }} has being restarted too many times at {{ $labels.instance }}
-                for the last 15 minutes. Please check if service is crash looping.
+                for the last 10 minutes. Please check if service is crash looping.
               runbook_url: default_runbook_url
               summary: Systemd service keeps restaring, possibly crash looping.
               dashboard_url: default_dashboard_url

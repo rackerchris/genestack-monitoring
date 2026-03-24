@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
           dashboard_url: default_dashboard_url
       - alert: alertmanager-cluster-crash-looping-critical
         expr: "(\n  count by (namespace,service,cluster) (\n    changes(process_start_time_seconds{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}[10m]) > 4\n  )\n/\n  count by (namespace,service,cluster) (\n    up{job=\"kube-prometheus-stack-alertmanager\",container=\"alertmanager\",namespace=\"prometheus\"}\n  )\n)\n>= 0.5"
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: alertmanager-cluster-crash-looping
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
         annotations:
           description: >-
             {{ $value | humanizePercentage }} of Alertmanager instances within the {{$labels.job}} cluster
-            have restarted at least 5 times in the last 10m. This critical alert fires after 15m.
+            have restarted at least 5 times in the last 10m. This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: Half or more of the Alertmanager instances within the same cluster are crashlooping.
           dashboard_url: default_dashboard_url

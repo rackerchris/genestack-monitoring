@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
           # https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
 
           max_over_time(prometheus_config_last_reload_successful{job="kube-prometheus-stack-prometheus",namespace="prometheus"}[5m]) == 0'
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: prometheus-bad-config
@@ -35,7 +35,7 @@ additionalPrometheusRulesMap:
         annotations:
           description: >-
             Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration. This
-            critical alert fires after 15m.
+            critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: Failed Prometheus configuration reload.
           dashboard_url: default_dashboard_url

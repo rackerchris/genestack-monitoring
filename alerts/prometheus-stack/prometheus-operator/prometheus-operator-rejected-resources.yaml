@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
           dashboard_url: default_dashboard_url
       - alert: prometheus-operator-rejected-resources-critical
         expr: min_over_time(prometheus_operator_managed_resources{state="rejected",job="kube-prometheus-stack-operator",namespace="prometheus"}[5m]) > 0
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: prometheus-operator-rejected-resources
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
         annotations:
           description: >-
             Prometheus operator in {{ $labels.namespace }} namespace rejected {{ printf "%0.0f" $value }} {{
-            $labels.controller }}/{{ $labels.resource }} resources. This critical alert fires after 15m.
+            $labels.controller }}/{{ $labels.resource }} resources. This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: Resources rejected by Prometheus operator
           dashboard_url: default_dashboard_url

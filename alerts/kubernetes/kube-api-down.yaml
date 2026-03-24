@@ -18,14 +18,14 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: kube-api-down-critical
             expr: absent(up{job="apiserver"} == 1)
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-api-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                KubeAPI has disappeared from Prometheus target discovery. This critical alert fires after 15m.
+                KubeAPI has disappeared from Prometheus target discovery. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Target disappeared from Prometheus target discovery.
               dashboard_url: default_dashboard_url

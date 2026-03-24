@@ -28,14 +28,14 @@ additionalPrometheusRulesMap:
               k8s.node.condition{job="otelcol-k8scluster",condition="Ready",status="true"} == 0
 
               and on (cluster, node) kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-node-not-ready
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                {{ $labels.node }} has been unready for more than 15 minutes on cluster {{ $labels.cluster }}.
+                {{ $labels.node }} has been unready for more than 10 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Node is not ready.
               dashboard_url: default_dashboard_url

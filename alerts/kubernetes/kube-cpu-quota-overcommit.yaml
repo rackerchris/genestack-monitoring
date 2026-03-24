@@ -25,7 +25,7 @@ additionalPrometheusRulesMap:
           - alert: kube-cpu-quota-overcommit-critical
             expr: >-
               sum by (cluster) ( min without(resource) (k8s.resource_quota.hard_limit{job="otelcol-k8scluster", resource=~"(cpu|requests.cpu)"}) ) / sum by (cluster) ( kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"} ) > 1.5
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-cpu-quota-overcommit
@@ -33,7 +33,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Namespaces. This
-                critical alert fires after 15m.
+                critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Cluster has overcommitted CPU resource requests.
               dashboard_url: default_dashboard_url

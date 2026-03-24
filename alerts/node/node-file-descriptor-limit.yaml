@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: node-file-descriptor-limit-critical
             expr: ( system_linux_file_handles{job="otelcol-hostmetrics",state="allocated"} * 100 / system_linux_file_handles{job="otelcol-hostmetrics",state="maximum"} > 90 )
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-file-descriptor-limit
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 File descriptors limit at {{ $labels.instance }} is currently at {{ printf "%.2f" $value }}%.
-                This critical alert fires after 15m.
+                This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Kernel is predicted to exhaust file descriptors limit soon.
               dashboard_url: default_dashboard_url
