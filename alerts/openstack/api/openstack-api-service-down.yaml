@@ -1,31 +1,31 @@
 additionalPrometheusRulesMap:
-  blackbox-service-down:
+  openstack-api-service-down:
     groups:
-    - name: blackbox-service-down
+    - name: openstack-api-service-down
       rules:
-      - alert: blackbox-service-down-warning
-        expr: probe_success == 0
+      - alert: openstack-api-service-down-warning
+        expr: httpcheck_status{http_status_class="5xx"} == 1
         for: 2m
         labels:
           severity: warning
-          group_name: blackbox-service-down
+          group_name: openstack-api-service-down
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
           description: >-
             Service probe has failed for more than two minutes.
           runbook_url: default_runbook_url
-          summary: Service probe has failed for more than two minutes on (instance {{ $labels.instance }})
+          summary: Service probe has failed for more than two minutes on (instance {{ $labels.http_url }})
           dashboard_url: default_dashboard_url
-      - alert: blackbox-service-down-critical
-        expr: probe_success == 0
+      - alert: openstack-api-service-down-critical
+        expr: httpcheck_status{http_status_class="5xx"} == 1
         for: 5m
         labels:
           severity: critical
-          group_name: blackbox-service-down
+          group_name: openstack-api-service-down
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
         annotations:
           description: >-
             Service probe has failed for more than five minutes.
           runbook_url: default_runbook_url
-          summary: Service probe has failed for more than five minutes on (instance {{ $labels.instance }})
+          summary: Service probe has failed for more than five minutes on (instance {{ $labels.http_url }})
           dashboard_url: default_dashboard_url
