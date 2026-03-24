@@ -41,7 +41,7 @@ additionalPrometheusRulesMap:
               or ( kube_daemonset_status_number_available{job="kube-state-metrics", namespace=~".*"} != k8s.daemonset.desired_scheduled_nodes{job="otelcol-k8scluster", namespace=~".*"} ) )
 
               and ( changes(kube_daemonset_status_updated_number_scheduled{job="kube-state-metrics", namespace=~".*"}[5m]) == 0 )
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-daemonset-rollout-stuck
@@ -49,7 +49,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not finished or progressed for at
-                least 15 minutes on cluster {{ $labels.cluster }}.
+                least 10 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: DaemonSet rollout is stuck.
               dashboard_url: default_dashboard_url

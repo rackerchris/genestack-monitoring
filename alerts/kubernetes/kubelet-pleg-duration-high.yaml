@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: kubelet-pleg-duration-high-critical
             expr: node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile{quantile="0.99"} >= 10
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kubelet-pleg-duration-high
@@ -27,8 +27,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 The Kubelet Pod Lifecycle Event Generator has a 99th percentile duration of {{ $value }} seconds
-                on node {{ $labels.node }} on cluster {{ $labels.cluster }}. This critical alert fires after
-                15m.
+                on node {{ $labels.node }} on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Kubelet Pod Lifecycle Event Generator is taking too long to relist.
               dashboard_url: default_dashboard_url

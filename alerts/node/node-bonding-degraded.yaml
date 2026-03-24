@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: node-bonding-degraded-critical
             expr: (node_bonding_slaves{job="otelcol-hostmetrics"} - node_bonding_active{job="otelcol-hostmetrics"}) != 0
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-bonding-degraded
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Bonding interface {{ $labels.master }} on {{ $labels.instance }} is in degraded state due to one
-                or more slave failures. This critical alert fires after 15m.
+                or more slave failures. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Bonding interface is degraded.
               dashboard_url: default_dashboard_url

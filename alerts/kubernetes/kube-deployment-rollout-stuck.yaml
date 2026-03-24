@@ -23,7 +23,7 @@ additionalPrometheusRulesMap:
           # Consider enabling optional metrics or using Prometheus receiver for kube-state-metrics
           - alert: kube-deployment-rollout-stuck-critical
             expr: kube_deployment_status_condition{condition="Progressing", status="false",job="kube-state-metrics", namespace=~".*"} != 0
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-deployment-rollout-stuck
@@ -31,7 +31,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for
-                longer than 15 minutes on cluster {{ $labels.cluster }}.
+                longer than 10 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: Deployment rollout is not progressing.
               dashboard_url: default_dashboard_url

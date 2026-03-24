@@ -23,7 +23,7 @@ additionalPrometheusRulesMap:
           dashboard_url: default_dashboard_url
       - alert: rabbitmq-queue-is-growing-critical
         expr: "(\n    avg_over_time(rabbitmq_detailed_queue_messages[10m]) - avg_over_time(rabbitmq_detailed_queue_messages[10m] offset 1m) > 1\n) * on (instance) group_left(rabbitmq_cluster) max by (instance, rabbitmq_cluster) (rabbitmq_identity_info)\n"
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: rabbitmq-queue-is-growing
@@ -32,8 +32,7 @@ additionalPrometheusRulesMap:
           description: >-
             Over the last 10 minutes, queue `{{ $labels.queue }}` in virtual host `{{ $labels.vhost }}` was
             growing. 10 minute moving average has grown by {{ $value }}. This happens in RabbitMQ cluster
-            `{{ $labels.rabbitmq_cluster }}` in namespace `{{ $labels.namespace }}`. This critical alert
-            fires after 15m.
+            `{{ $labels.rabbitmq_cluster }}` in namespace `{{ $labels.namespace }}`. This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: 'Queue size is steadily growing over time.
 

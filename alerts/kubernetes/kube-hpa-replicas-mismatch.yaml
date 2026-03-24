@@ -33,7 +33,7 @@ additionalPrometheusRulesMap:
               and (k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"} < k8s.hpa.max_replicas{job="otelcol-k8scluster", namespace=~".*"})
 
               and changes(k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"}[15m]) == 0
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-hpa-replicas-mismatch
@@ -41,7 +41,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has not matched the desired
-                number of replicas for longer than 15 minutes on cluster {{ $labels.cluster }}.
+                number of replicas for longer than 10 minutes on cluster {{ $labels.cluster }}.
               runbook_url: default_runbook_url
               summary: HPA has not matched desired number of replicas.
               dashboard_url: default_dashboard_url

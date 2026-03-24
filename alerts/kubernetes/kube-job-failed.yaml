@@ -20,7 +20,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: kube-job-failed-critical
             expr: k8s.job.failed_pods{job="otelcol-k8scluster", namespace=~".*"} > 0
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-job-failed
@@ -28,8 +28,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after
-                investigation should clear this alert on cluster {{ $labels.cluster }}. This critical alert
-                fires after 15m.
+                investigation should clear this alert on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Job failed to complete.
               dashboard_url: default_dashboard_url

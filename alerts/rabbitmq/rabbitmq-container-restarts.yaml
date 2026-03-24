@@ -41,7 +41,7 @@ additionalPrometheusRulesMap:
           >= 1
 
           '
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: rabbitmq-container-restarts
@@ -51,7 +51,7 @@ additionalPrometheusRulesMap:
           description: >-
             Over the last 10 minutes, container `{{ $labels.container }}` restarted `{{ $value | printf
             "%.0f" }}` times in pod `{{ $labels.pod }}` of RabbitMQ cluster `{{ $labels.rabbitmq_cluster }}`
-            in namespace `{{ $labels.namespace }}`. This critical alert fires after 15m.
+            in namespace `{{ $labels.namespace }}`. This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: 'Investigate why the container got restarted.
 

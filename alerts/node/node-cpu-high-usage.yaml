@@ -19,14 +19,14 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: node-cpu-high-usage-critical
             expr: sum without(mode) (avg without (cpu) (rate(system_cpu_time_seconds_total{job="otelcol-hostmetrics", mode!~"idle|iowait"}[2m]))) * 100 > 90
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-cpu-high-usage
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                CPU usage at {{ $labels.instance }} has been above 90% for the last 15 minutes, is currently at
+                CPU usage at {{ $labels.instance }} has been above 90% for the last 10 minutes, is currently at
                 {{ printf "%.2f" $value }}%.
               runbook_url: default_runbook_url
               summary: High CPU usage.

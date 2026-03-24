@@ -29,7 +29,7 @@ additionalPrometheusRulesMap:
               ( max by (namespace, statefulset, job, cluster) ( kube_statefulset_status_current_revision{job="kube-state-metrics", namespace=~".*"} unless kube_statefulset_status_update_revision{job="kube-state-metrics", namespace=~".*"} ) * on (namespace, statefulset, job, cluster) ( k8s.statefulset.desired_pods{job="otelcol-k8scluster", namespace=~".*"} != k8s.statefulset.updated_pods{job="otelcol-k8scluster", namespace=~".*"} ) )
 
               and on (namespace, statefulset, job, cluster) ( changes(k8s.statefulset.updated_pods{job="otelcol-k8scluster", namespace=~".*"}[5m]) == 0 )
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-statefulset-update-not-rolled-out
@@ -37,7 +37,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} update has not been rolled out on
-                cluster {{ $labels.cluster }}. This critical alert fires after 15m.
+                cluster {{ $labels.cluster }}. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: StatefulSet update has not been rolled out.
               dashboard_url: default_dashboard_url

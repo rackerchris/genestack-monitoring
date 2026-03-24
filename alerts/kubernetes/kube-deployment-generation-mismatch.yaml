@@ -26,7 +26,7 @@ additionalPrometheusRulesMap:
           - alert: kube-deployment-generation-mismatch-critical
             expr: >-
               kube_deployment_status_observed_generation{job="kube-state-metrics", namespace=~".*"} != kube_deployment_metadata_generation{job="kube-state-metrics", namespace=~".*"}
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-deployment-generation-mismatch
@@ -35,7 +35,7 @@ additionalPrometheusRulesMap:
               description: >-
                 Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment }} does not match, this
                 indicates that the Deployment has failed but has not been rolled back on cluster {{
-                $labels.cluster }}. This critical alert fires after 15m.
+                $labels.cluster }}. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Deployment generation mismatch due to possible roll-back
               dashboard_url: default_dashboard_url

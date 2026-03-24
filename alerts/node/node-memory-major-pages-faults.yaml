@@ -20,7 +20,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: node-memory-major-pages-faults-critical
             expr: rate(system_paging_faults_total{job="otelcol-hostmetrics",type="major"}[5m]) > 500
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-memory-major-pages-faults
@@ -28,7 +28,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Memory major pages are occurring at very high rate at {{ $labels.instance }}, 500 major page
-                faults per second for the last 15 minutes, is currently at {{ printf "%.2f" $value }}. Please
+                faults per second for the last 10 minutes, is currently at {{ printf "%.2f" $value }}. Please
                 check that there is enough memory available at this instance.
               runbook_url: default_runbook_url
               summary: Memory major page faults are occurring at very high rate.

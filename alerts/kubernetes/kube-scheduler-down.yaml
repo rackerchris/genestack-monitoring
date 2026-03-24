@@ -19,15 +19,14 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: kube-scheduler-down-critical
             expr: absent(up{job="kube-scheduler"} == 1)
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-scheduler-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                KubeScheduler has disappeared from Prometheus target discovery. This critical alert fires after
-                15m.
+                KubeScheduler has disappeared from Prometheus target discovery. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Target disappeared from Prometheus target discovery.
               dashboard_url: default_dashboard_url

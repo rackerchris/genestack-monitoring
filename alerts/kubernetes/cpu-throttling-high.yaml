@@ -22,7 +22,7 @@ additionalPrometheusRulesMap:
           - alert: cpu-throttling-high-critical
             expr: >-
               sum(increase(container_cpu_cfs_throttled_periods_total{container!="", job="kubelet", metrics_path="/metrics/cadvisor", }[5m])) without (id, metrics_path, name, image, endpoint, job, node) / on (cluster, namespace, pod, container, instance) group_left sum(increase(container_cpu_cfs_periods_total{job="kubelet", metrics_path="/metrics/cadvisor", }[5m])) without (id, metrics_path, name, image, endpoint, job, node) > ( 25 / 100 )
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: cpu-throttling-high
@@ -31,7 +31,7 @@ additionalPrometheusRulesMap:
               description: >-
                 {{ $value | humanizePercentage }} throttling of CPU in namespace {{ $labels.namespace }} for
                 container {{ $labels.container }} in pod {{ $labels.pod }} on cluster {{ $labels.cluster }}.
-                This critical alert fires after 15m.
+                This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Processes experience elevated CPU throttling.
               dashboard_url: default_dashboard_url

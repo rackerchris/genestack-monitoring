@@ -41,7 +41,7 @@ additionalPrometheusRulesMap:
           0
 
           '
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: rabbitmq-persistent-volume-missing
@@ -51,7 +51,7 @@ additionalPrometheusRulesMap:
           description: >-
             PersistentVolumeClaim `{{ $labels.persistentvolumeclaim }}` of RabbitMQ cluster `{{
             $labels.label_app_kubernetes_io_name }}` in namespace `{{ $labels.namespace }}` is not bound.
-            This critical alert fires after 15m.
+            This critical alert fires after 10m.
           runbook_url: default_runbook_url
           summary: 'RabbitMQ needs a PersistentVolume for its data.
 

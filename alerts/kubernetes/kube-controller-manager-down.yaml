@@ -19,15 +19,14 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: kube-controller-manager-down-critical
             expr: absent(up{job="kube-controller-manager"} == 1)
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-controller-manager-down
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                KubeControllerManager has disappeared from Prometheus target discovery. This critical alert
-                fires after 15m.
+                KubeControllerManager has disappeared from Prometheus target discovery. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Target disappeared from Prometheus target discovery.
               dashboard_url: default_dashboard_url

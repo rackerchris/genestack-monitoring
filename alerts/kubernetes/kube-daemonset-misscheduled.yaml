@@ -20,7 +20,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: kube-daemonset-misscheduled-critical
             expr: k8s.daemonset.misscheduled_nodes{job="otelcol-k8scluster", namespace=~".*"} > 0
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: kube-daemonset-misscheduled
@@ -28,8 +28,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 {{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where
-                they are not supposed to run on cluster {{ $labels.cluster }}. This critical alert fires after
-                15m.
+                they are not supposed to run on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: DaemonSet pods are misscheduled.
               dashboard_url: default_dashboard_url

@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
           dashboard_url: default_dashboard_url
       - alert: mariadb-replication-errors-critical
         expr: mysql_slave_status_last_sql_errno != 0 or mysql_slave_status_last_io_errno != 0 or mysql_slave_status_last_errno != 0
-        for: 15m
+        for: 10m
         labels:
           severity: critical
           group_name: mariadb-replication-errors
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
         annotations:
           description: >-
             MariaDB {{$labels.job}} on {{$labels.instance}} is reporting replication errors. This critical
-            alert fires after 15m.
+            alert fires after 10m.
           runbook_url: default_runbook_url
           summary: MariaDB is reporting replication errors from {{$labels.instance}}, immediate attention is required.
           dashboard_url: default_dashboard_url

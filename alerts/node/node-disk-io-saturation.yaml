@@ -25,7 +25,7 @@ additionalPrometheusRulesMap:
               rate(system_disk_weighted_io_time_seconds_total{job="otelcol-hostmetrics",
 
               device=~"(/dev/)?(mmcblk.p.+|nvme.+|rbd.+|sd.+|vd.+|xvd.+|dm-.+|md.+|dasd.+)"}[5m]) > 10
-            for: 15m
+            for: 10m
             labels:
               severity: critical
               group_name: node-disk-io-saturation
@@ -33,7 +33,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Disk IO queue (aqu-sq) is high on {{ $labels.device }} at {{ $labels.instance }}, has been above
-                10 for the last 15 minutes, is currently at {{ printf "%.2f" $value }}. This symptom might
+                10 for the last 10 minutes, is currently at {{ printf "%.2f" $value }}. This symptom might
                 indicate disk saturation.
               runbook_url: default_runbook_url
               summary: Disk IO queue is high.
