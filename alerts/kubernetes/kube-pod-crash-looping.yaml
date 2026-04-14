@@ -3,11 +3,9 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-pod-crash-looping
         rules:
-          # NOTE: Uses k8s.container.status.reason which is an optional metric in k8sclusterreceiver
-          # May need to enable optional metrics in OTel collector configuration
           - alert: kube-pod-crash-looping-warning
             expr: >-
-              max_over_time(k8s.container.status.reason{reason="CrashLoopBackOff", job="otelcol-k8scluster", namespace=~".*"}[5m]) >= 1
+              max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", namespace=~".*"}[5m]) >= 1
             for: 5m
             labels:
               severity: warning
@@ -16,16 +14,14 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state
-                (reason: "CrashLoopBackOff") on cluster {{ $labels.cluster }}. This warning alert fires after
+                (reason: "CrashLoopBackOff"). This warning alert fires after
                 5m.
               runbook_url: default_runbook_url
               summary: Pod is crash looping.
               dashboard_url: default_dashboard_url
-          # NOTE: Uses k8s.container.status.reason which is an optional metric in k8sclusterreceiver
-          # May need to enable optional metrics in OTel collector configuration
           - alert: kube-pod-crash-looping-critical
             expr: >-
-              max_over_time(k8s.container.status.reason{reason="CrashLoopBackOff", job="otelcol-k8scluster", namespace=~".*"}[5m]) >= 1
+              max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", namespace=~".*"}[5m]) >= 1
             for: 10m
             labels:
               severity: critical
@@ -34,7 +30,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state
-                (reason: "CrashLoopBackOff") on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
+                (reason: "CrashLoopBackOff"). This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Pod is crash looping.
               dashboard_url: default_dashboard_url

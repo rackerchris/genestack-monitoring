@@ -5,7 +5,11 @@ additionalPrometheusRulesMap:
         rules:
           - alert: kube-node-eviction-warning
             expr: >-
-              sum(rate(kubelet_evictions{job="kubelet", metrics_path="/metrics"}[15m])) by (cluster, eviction_signal, instance) * on (cluster, instance) group_left(node) max by (cluster, instance, node) ( kubelet_node_name{job="kubelet", metrics_path="/metrics"} ) > 0
+              sum by (namespace, pod, node) (
+                (kube_pod_status_reason{reason="Evicted"} == 1)
+                * on (namespace, pod) group_left(node)
+                kube_pod_info
+              ) > 0
             for: 5m
             labels:
               severity: warning
@@ -13,15 +17,18 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                Node {{ $labels.node }} on {{ $labels.cluster }} is evicting Pods due to {{
-                $labels.eviction_signal }}.  Eviction occurs when eviction thresholds are crossed, typically
-                caused by Pods exceeding RAM/ephemeral-storage limits. This warning alert fires after 5m.
+                Evictions have been detected on node {{ $labels.node }}. Investigate memory, disk, and ephemeral storage
+                pressure along with recent evicted pods.
               runbook_url: default_runbook_url
-              summary: Node is evicting pods.
+              summary: Pod evictions detected on node {{ $labels.node }}
               dashboard_url: default_dashboard_url
           - alert: kube-node-eviction-critical
             expr: >-
-              sum(rate(kubelet_evictions{job="kubelet", metrics_path="/metrics"}[15m])) by (cluster, eviction_signal, instance) * on (cluster, instance) group_left(node) max by (cluster, instance, node) ( kubelet_node_name{job="kubelet", metrics_path="/metrics"} ) > 0
+              sum by (namespace, pod, node) (
+                (kube_pod_status_reason{reason="Evicted"} == 1)
+                * on (namespace, pod) group_left(node)
+                kube_pod_info
+              ) > 0
             for: 10m
             labels:
               severity: critical
@@ -29,9 +36,8 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                Node {{ $labels.node }} on {{ $labels.cluster }} is evicting Pods due to {{
-                $labels.eviction_signal }}.  Eviction occurs when eviction thresholds are crossed, typically
-                caused by Pods exceeding RAM/ephemeral-storage limits. This critical alert fires after 10m.
+                Evictions have been detected on node {{ $labels.node }}. Investigate memory, disk, and ephemeral storage
+                pressure along with recent evicted pods.
               runbook_url: default_runbook_url
-              summary: Node is evicting pods.
+              summary: Pod evictions detected on node {{ $labels.node }}
               dashboard_url: default_dashboard_url

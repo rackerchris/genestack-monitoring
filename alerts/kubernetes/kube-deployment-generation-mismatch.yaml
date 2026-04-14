@@ -3,11 +3,9 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-deployment-generation-mismatch
         rules:
-          # NOTE: Generation mismatch metrics (metadata_generation vs observed_generation) may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics or enabling optional metrics
           - alert: kube-deployment-generation-mismatch-warning
             expr: >-
-              kube_deployment_status_observed_generation{job="kube-state-metrics", namespace=~".*"} != kube_deployment_metadata_generation{job="kube-state-metrics", namespace=~".*"}
+              kube_deployment_status_observed_generation{namespace=~".*"} != kube_deployment_metadata_generation{ namespace=~".*"}
             for: 5m
             labels:
               severity: warning
@@ -21,11 +19,9 @@ additionalPrometheusRulesMap:
               runbook_url: default_runbook_url
               summary: Deployment generation mismatch due to possible roll-back
               dashboard_url: default_dashboard_url
-          # NOTE: Generation mismatch metrics (metadata_generation vs observed_generation) may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics or enabling optional metrics
           - alert: kube-deployment-generation-mismatch-critical
             expr: >-
-              kube_deployment_status_observed_generation{job="kube-state-metrics", namespace=~".*"} != kube_deployment_metadata_generation{job="kube-state-metrics", namespace=~".*"}
+              kube_deployment_status_observed_generation{namespace=~".*"} != kube_deployment_metadata_generation{namespace=~".*"}
             for: 10m
             labels:
               severity: critical

@@ -15,7 +15,7 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                The API server is burning too much error budget on cluster {{ $labels.cluster }}. This warning
+                The API server is burning too much error budget. This warning
                 alert fires after 5m.
               runbook_url: default_runbook_url
               summary: The API server is burning too much error budget.
@@ -32,7 +32,7 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                The API server is burning too much error budget on cluster {{ $labels.cluster }}. This critical
+                The API server is burning too much error budget. This critical
                 alert fires after 10m.
               runbook_url: default_runbook_url
               summary: The API server is burning too much error budget.

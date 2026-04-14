@@ -3,11 +3,9 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-node-unreachable
         rules:
-          # NOTE: kube_node_spec_taint may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics
           - alert: kube-node-unreachable-warning
             expr: >-
-              (kube_node_spec_taint{job="kube-state-metrics",key="node.kubernetes.io/unreachable",effect="NoSchedule"} unless ignoring(key,value) kube_node_spec_taint{job="kube-state-metrics",key=~"ToBeDeletedByClusterAutoscaler|cloud.google.com/impending-node-termination|aws-node-termination-handler/spot-itn"}) == 1
+              (kube_node_spec_taint{key="node.kubernetes.io/unreachable",effect="NoSchedule"} unless ignoring(key,value) kube_node_spec_taint{key=~"ToBeDeletedByClusterAutoscaler"}) == 1
             for: 5m
             labels:
               severity: warning
@@ -15,16 +13,14 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                {{ $labels.node }} is unreachable and some workloads may be rescheduled on cluster {{
-                $labels.cluster }}. This warning alert fires after 5m.
+                {{ $labels.node }} is unreachable and some workloads may be rescheduled on cluster.
+                This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Node is unreachable.
               dashboard_url: default_dashboard_url
-          # NOTE: kube_node_spec_taint may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics
           - alert: kube-node-unreachable-critical
             expr: >-
-              (kube_node_spec_taint{job="kube-state-metrics",key="node.kubernetes.io/unreachable",effect="NoSchedule"} unless ignoring(key,value) kube_node_spec_taint{job="kube-state-metrics",key=~"ToBeDeletedByClusterAutoscaler|cloud.google.com/impending-node-termination|aws-node-termination-handler/spot-itn"}) == 1
+              (kube_node_spec_taint{key="node.kubernetes.io/unreachable",effect="NoSchedule"} unless ignoring(key,value) kube_node_spec_taint{key=~"ToBeDeletedByClusterAutoscaler"}) == 1
             for: 10m
             labels:
               severity: critical
@@ -32,8 +28,8 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                {{ $labels.node }} is unreachable and some workloads may be rescheduled on cluster {{
-                $labels.cluster }}. This critical alert fires after 10m.
+                {{ $labels.node }} is unreachable and some workloads may be rescheduled on cluster.
+                This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Node is unreachable.
               dashboard_url: default_dashboard_url

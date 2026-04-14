@@ -14,7 +14,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming
-                requests on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
+                requests. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests.
               dashboard_url: default_dashboard_url
@@ -29,7 +29,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming
-                requests on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
+                requests. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests.
               dashboard_url: default_dashboard_url

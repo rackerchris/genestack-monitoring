@@ -13,8 +13,8 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                There are {{ $value }} different semantic versions of Kubernetes components running on cluster
-                {{ $labels.cluster }}. This warning alert fires after 5m.
+                There are {{ $value }} different semantic versions of Kubernetes components running on cluster.
+                This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Different semantic versions of Kubernetes components running.
               dashboard_url: default_dashboard_url
@@ -28,8 +28,8 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                There are {{ $value }} different semantic versions of Kubernetes components running on cluster
-                {{ $labels.cluster }}. This critical alert fires after 10m.
+                There are {{ $value }} different semantic versions of Kubernetes components running on cluster.
+                This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Different semantic versions of Kubernetes components running.
               dashboard_url: default_dashboard_url

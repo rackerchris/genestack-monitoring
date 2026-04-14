@@ -5,7 +5,9 @@ additionalPrometheusRulesMap:
         rules:
           - alert: kubelet-pod-startup-latency-high-warning
             expr: >-
-              histogram_quantile(0.99, sum by (cluster, instance, le) ( topk by (cluster, instance, le, operation_type) (1, rate(kubelet_pod_worker_duration_seconds_bucket{job="kubelet", metrics_path="/metrics"}[5m]) ) ) ) * on (cluster, instance) group_left(node) topk by (cluster, instance, node) (1, kubelet_node_name{job="kubelet", metrics_path="/metrics"} ) > 60
+              histogram_quantile(0.99, sum by (instance, le) ( topk by (instance, le, operation_type) (1, rate(kubelet_pod_worker_duration_seconds_bucket{job="kubelet", metrics_path="/metrics"}[5m]) ) ) ) *
+
+              on (instance) group_left(node) topk by (instance, node) (1, kubelet_node_name{job="kubelet", metrics_path="/metrics"} ) > 60
             for: 5m
             labels:
               severity: warning
@@ -13,14 +15,16 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }}
-                on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
+                Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }}.
+                This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Kubelet Pod startup latency is too high.
               dashboard_url: default_dashboard_url
           - alert: kubelet-pod-startup-latency-high-critical
             expr: >-
-              histogram_quantile(0.99, sum by (cluster, instance, le) ( topk by (cluster, instance, le, operation_type) (1, rate(kubelet_pod_worker_duration_seconds_bucket{job="kubelet", metrics_path="/metrics"}[5m]) ) ) ) * on (cluster, instance) group_left(node) topk by (cluster, instance, node) (1, kubelet_node_name{job="kubelet", metrics_path="/metrics"} ) > 60
+              histogram_quantile(0.99, sum by (instance, le) ( topk by (instance, le, operation_type) (1, rate(kubelet_pod_worker_duration_seconds_bucket{job="kubelet", metrics_path="/metrics"}[5m]) ) ) ) *
+
+              on (instance) group_left(node) topk by (instance, node) (1, kubelet_node_name{job="kubelet", metrics_path="/metrics"} ) > 60
             for: 10m
             labels:
               severity: critical
@@ -28,8 +32,8 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }}
-                on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
+                Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }}.
+                This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Kubelet Pod startup latency is too high.
               dashboard_url: default_dashboard_url

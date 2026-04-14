@@ -3,10 +3,8 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-persistent-volume-errors
         rules:
-          # NOTE: PersistentVolume metrics may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics
           - alert: kube-persistent-volume-errors-warning
-            expr: kube_persistentvolume_status_phase{phase=~"Failed|Pending",job="kube-state-metrics"} > 0
+            expr: kube_persistentvolume_status_phase{phase=~"Failed|Pending"} > 0
             for: 5m
             labels:
               severity: warning
@@ -14,15 +12,13 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                The persistent volume {{ $labels.persistentvolume }} {{ with $labels.cluster -}} on Cluster {{ .
-                }} {{- end }} has status {{ $labels.phase }}. This warning alert fires after 5m.
+                The persistent volume {{ $labels.persistentvolume }} has status {{ $labels.phase }}.
+                This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: PersistentVolume is having issues with provisioning.
               dashboard_url: default_dashboard_url
-          # NOTE: PersistentVolume metrics may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics
           - alert: kube-persistent-volume-errors-critical
-            expr: kube_persistentvolume_status_phase{phase=~"Failed|Pending",job="kube-state-metrics"} > 0
+            expr: kube_persistentvolume_status_phase{phase=~"Failed|Pending"} > 0
             for: 10m
             labels:
               severity: critical
@@ -30,8 +26,8 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                The persistent volume {{ $labels.persistentvolume }} {{ with $labels.cluster -}} on Cluster {{ .
-                }} {{- end }} has status {{ $labels.phase }}. This critical alert fires after 10m.
+                The persistent volume {{ $labels.persistentvolume }} has status {{ $labels.phase }}.
+                This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: PersistentVolume is having issues with provisioning.
               dashboard_url: default_dashboard_url

@@ -3,8 +3,6 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-cpu-overcommit
         rules:
-          # NOTE: kube_node_status_allocatable and kube_node_role may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics or recording rules
           - alert: kube-cpu-overcommit-warning
             expr: >-
               # Non-HA clusters. ( ( sum by (cluster) (namespace_cpu:kube_pod_container_resource_requests:sum{}) - sum by (cluster) (kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) > 0 )
@@ -24,8 +22,6 @@ additionalPrometheusRulesMap:
               runbook_url: default_runbook_url
               summary: Cluster has overcommitted CPU resource requests.
               dashboard_url: default_dashboard_url
-          # NOTE: kube_node_status_allocatable and kube_node_role may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics or recording rules
           - alert: kube-cpu-overcommit-critical
             expr: >-
               # Non-HA clusters. ( ( sum by (cluster) (namespace_cpu:kube_pod_container_resource_requests:sum{}) - sum by (cluster) (kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) > 0 )

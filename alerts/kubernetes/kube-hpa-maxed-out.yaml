@@ -5,7 +5,7 @@ additionalPrometheusRulesMap:
         rules:
           - alert: kube-hpa-maxed-out-warning
             expr: >-
-              k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"} == k8s.hpa.max_replicas{job="otelcol-k8scluster", namespace=~".*"}
+              kube_horizontalpodautoscaler_status_current_replicas{namespace=~".*"} == kube_horizontalpodautoscaler_spec_max_replicas{namespace=~".*"}
             for: 5m
             labels:
               severity: warning
@@ -20,7 +20,7 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: kube-hpa-maxed-out-critical
             expr: >-
-              k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"} == k8s.hpa.max_replicas{job="otelcol-k8scluster", namespace=~".*"}
+              kube_horizontalpodautoscaler_status_current_replicas{namespace=~".*"} == kube_horizontalpodautoscaler_spec_max_replicas{namespace=~".*"}
             for: 10m
             labels:
               severity: critical

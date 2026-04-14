@@ -13,7 +13,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Kubelet on node {{ $labels.node }} has failed to renew its client certificate ({{ $value |
-                humanize }} errors in the last 5 minutes) on cluster {{ $labels.cluster }}. This warning alert
+                humanize }} errors in the last 5 minutes). This warning alert
                 fires after 5m.
               runbook_url: default_runbook_url
               summary: Kubelet has failed to renew its client certificate.
@@ -28,7 +28,8 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Kubelet on node {{ $labels.node }} has failed to renew its client certificate ({{ $value |
-                humanize }} errors in the last 5 minutes) on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
+                humanize }} errors in the last 5 minutes).
+                This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Kubelet has failed to renew its client certificate.
               dashboard_url: default_dashboard_url

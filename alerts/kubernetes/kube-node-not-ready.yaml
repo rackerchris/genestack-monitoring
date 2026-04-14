@@ -3,13 +3,11 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-node-not-ready
         rules:
-          # NOTE: k8s.node.condition is an optional metric that needs enabling with node.condition_type_to_report
-          # kube_node_spec_unschedulable may not be available in OTel k8sclusterreceiver
           - alert: kube-node-not-ready-warning
             expr: >-
-              k8s.node.condition{job="otelcol-k8scluster",condition="Ready",status="true"} == 0
+              kube_node_status_condition{condition="Ready", status="true"} == 0
 
-              and on (cluster, node) kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
+              and on (node) kube_node_spec_unschedulable == 0
             for: 5m
             labels:
               severity: warning
@@ -17,17 +15,15 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                {{ $labels.node }} has been unready for more than 5 minutes on cluster {{ $labels.cluster }}.
+                Node {{ $labels.node }} has been unready for more than 5 minutes.
               runbook_url: default_runbook_url
               summary: Node is not ready.
               dashboard_url: default_dashboard_url
-          # NOTE: k8s.node.condition is an optional metric that needs enabling with node.condition_type_to_report
-          # kube_node_spec_unschedulable may not be available in OTel k8sclusterreceiver
           - alert: kube-node-not-ready-critical
             expr: >-
-              k8s.node.condition{job="otelcol-k8scluster",condition="Ready",status="true"} == 0
+              kube_node_status_condition{condition="Ready", status="true"} == 0
 
-              and on (cluster, node) kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
+              and on (node) kube_node_spec_unschedulable == 0
             for: 10m
             labels:
               severity: critical
@@ -35,7 +31,7 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                {{ $labels.node }} has been unready for more than 10 minutes on cluster {{ $labels.cluster }}.
+                Node {{ $labels.node }} has been unready for more than 10 minutes.
               runbook_url: default_runbook_url
               summary: Node is not ready.
               dashboard_url: default_dashboard_url

@@ -4,7 +4,7 @@ additionalPrometheusRulesMap:
       - name: kube-aggregated-api-errors
         rules:
           - alert: kube-aggregated-api-errors-warning
-            expr: sum by (cluster, instance, name, reason)(increase(aggregator_unavailable_apiservice_total{job="apiserver"}[1m])) > 0
+            expr: sum by (instance, name, reason)(increase(aggregator_unavailable_apiservice_total{job="apiserver"}[1m])) > 0
             for: 5m
             labels:
               severity: warning
@@ -13,12 +13,13 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Kubernetes aggregated API {{ $labels.instance }}/{{ $labels.name }} has reported {{
-                $labels.reason }} errors on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
+                $labels.reason }} errors.
+                This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Kubernetes aggregated API has reported errors.
               dashboard_url: default_dashboard_url
           - alert: kube-aggregated-api-errors-critical
-            expr: sum by (cluster, instance, name, reason)(increase(aggregator_unavailable_apiservice_total{job="apiserver"}[1m])) > 0
+            expr: sum by (instance, name, reason)(increase(aggregator_unavailable_apiservice_total{job="apiserver"}[1m])) > 0
             for: 10m
             labels:
               severity: critical
@@ -27,7 +28,8 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Kubernetes aggregated API {{ $labels.instance }}/{{ $labels.name }} has reported {{
-                $labels.reason }} errors on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
+                $labels.reason }} errors.
+                This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Kubernetes aggregated API has reported errors.
               dashboard_url: default_dashboard_url

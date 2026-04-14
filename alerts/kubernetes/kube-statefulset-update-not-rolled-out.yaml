@@ -3,13 +3,15 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-statefulset-update-not-rolled-out
         rules:
-          # NOTE: Revision metrics (current_revision, update_revision) may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics or enabling optional metrics
           - alert: kube-statefulset-update-not-rolled-out-warning
             expr: >-
-              ( max by (namespace, statefulset, job, cluster) ( kube_statefulset_status_current_revision{job="kube-state-metrics", namespace=~".*"} unless kube_statefulset_status_update_revision{job="kube-state-metrics", namespace=~".*"} ) * on (namespace, statefulset, job, cluster) ( k8s.statefulset.desired_pods{job="otelcol-k8scluster", namespace=~".*"} != k8s.statefulset.updated_pods{job="otelcol-k8scluster", namespace=~".*"} ) )
+              ( max by (namespace, statefulset, job) ( kube_statefulset_status_current_revision{job="kube-state-metrics", namespace=~".*"}
 
-              and on (namespace, statefulset, job, cluster) ( changes(k8s.statefulset.updated_pods{job="otelcol-k8scluster", namespace=~".*"}[5m]) == 0 )
+              unless kube_statefulset_status_update_revision{job="kube-state-metrics", namespace=~".*"} ) *
+
+              on (namespace, statefulset) ( kube_statefulset_replicas{namespace=~".*"} != kube_statefulset_status_replicas_updated{namespace=~".*"} ) )
+
+              and on (namespace, statefulset) ( changes(kube_statefulset_status_replicas_updated{namespace=~".*"}[5m]) == 0 )
             for: 5m
             labels:
               severity: warning
@@ -22,13 +24,15 @@ additionalPrometheusRulesMap:
               runbook_url: default_runbook_url
               summary: StatefulSet update has not been rolled out.
               dashboard_url: default_dashboard_url
-          # NOTE: Revision metrics (current_revision, update_revision) may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics or enabling optional metrics
           - alert: kube-statefulset-update-not-rolled-out-critical
             expr: >-
-              ( max by (namespace, statefulset, job, cluster) ( kube_statefulset_status_current_revision{job="kube-state-metrics", namespace=~".*"} unless kube_statefulset_status_update_revision{job="kube-state-metrics", namespace=~".*"} ) * on (namespace, statefulset, job, cluster) ( k8s.statefulset.desired_pods{job="otelcol-k8scluster", namespace=~".*"} != k8s.statefulset.updated_pods{job="otelcol-k8scluster", namespace=~".*"} ) )
+              ( max by (namespace, statefulset, job) ( kube_statefulset_status_current_revision{job="kube-state-metrics", namespace=~".*"}
 
-              and on (namespace, statefulset, job, cluster) ( changes(k8s.statefulset.updated_pods{job="otelcol-k8scluster", namespace=~".*"}[5m]) == 0 )
+              unless kube_statefulset_status_update_revision{job="kube-state-metrics", namespace=~".*"} ) *
+
+              on (namespace, statefulset) ( kube_statefulset_replicas{namespace=~".*"} != kube_statefulset_status_replicas_updated{namespace=~".*"} ) )
+
+              and on (namespace, statefulset) ( changes(kube_statefulset_status_replicas_updated{namespace=~".*"}[5m]) == 0 )
             for: 10m
             labels:
               severity: critical

@@ -14,7 +14,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 {{ $value | humanizePercentage }} throttling of CPU in namespace {{ $labels.namespace }} for
-                container {{ $labels.container }} in pod {{ $labels.pod }} on cluster {{ $labels.cluster }}.
+                container {{ $labels.container }} in pod {{ $labels.pod }}.
                 This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Processes experience elevated CPU throttling.
@@ -30,7 +30,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 {{ $value | humanizePercentage }} throttling of CPU in namespace {{ $labels.namespace }} for
-                container {{ $labels.container }} in pod {{ $labels.pod }} on cluster {{ $labels.cluster }}.
+                container {{ $labels.container }} in pod {{ $labels.pod }}.
                 This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Processes experience elevated CPU throttling.

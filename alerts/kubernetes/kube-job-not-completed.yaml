@@ -3,13 +3,11 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-job-not-completed
         rules:
-          # NOTE: kube_job_status_start_time may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics or enabling optional metrics
           - alert: kube-job-not-completed-warning
             expr: >-
-              time() - max by (namespace, job_name, cluster) (kube_job_status_start_time{job="kube-state-metrics", namespace=~".*"}
+              time() - max by (namespace, job_name) (kube_job_status_start_time{namespace=~".*"}
 
-              and k8s.job.active_pods{job="otelcol-k8scluster", namespace=~".*"} > 0) > 43200
+              and kube_job_status_active{namespace=~".*"} > 0) > 43200
             for: 5m
             labels:
               severity: warning
@@ -18,18 +16,16 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than {{ "43200" |
-                humanizeDuration }} to complete on cluster {{ $labels.cluster }}. This warning alert fires after
+                humanizeDuration }} to complete. This warning alert fires after
                 5m.
               runbook_url: default_runbook_url
               summary: Job did not complete in time
               dashboard_url: default_dashboard_url
-          # NOTE: kube_job_status_start_time may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics or enabling optional metrics
           - alert: kube-job-not-completed-critical
             expr: >-
-              time() - max by (namespace, job_name, cluster) (kube_job_status_start_time{job="kube-state-metrics", namespace=~".*"}
+              time() - max by (namespace, job_name) (kube_job_status_start_time{namespace=~".*"}
 
-              and k8s.job.active_pods{job="otelcol-k8scluster", namespace=~".*"} > 0) > 43200
+              and kube_job_status_active{namespace=~".*"} > 0) > 43200
             for: 10m
             labels:
               severity: critical
@@ -38,7 +34,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than {{ "43200" |
-                humanizeDuration }} to complete on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
+                humanizeDuration }} to complete. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Job did not complete in time
               dashboard_url: default_dashboard_url

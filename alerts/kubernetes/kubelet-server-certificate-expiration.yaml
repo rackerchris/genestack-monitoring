@@ -4,7 +4,7 @@ additionalPrometheusRulesMap:
       - name: kubelet-server-certificate-expiration
         rules:
           - alert: kubelet-server-certificate-expiration-warning
-            expr: kubelet_certificate_manager_server_ttl_seconds < 86400
+            expr: kubelet_certificate_manager_server_ttl_seconds < 2419200
             for: 5m
             labels:
               severity: warning
@@ -13,12 +13,12 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Server certificate for Kubelet on node {{ $labels.node }} expires in {{ $value |
-                humanizeDuration }} on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
+                humanizeDuration }}. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Kubelet server certificate is about to expire.
               dashboard_url: default_dashboard_url
           - alert: kubelet-server-certificate-expiration-critical
-            expr: kubelet_certificate_manager_server_ttl_seconds < 86400
+            expr: kubelet_certificate_manager_server_ttl_seconds < 1209600
             for: 10m
             labels:
               severity: critical
@@ -27,7 +27,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 Server certificate for Kubelet on node {{ $labels.node }} expires in {{ $value |
-                humanizeDuration }} on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
+                humanizeDuration }}. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Kubelet server certificate is about to expire.
               dashboard_url: default_dashboard_url

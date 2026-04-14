@@ -3,13 +3,11 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-node-pressure
         rules:
-          # NOTE: k8s.node.condition is an optional metric that needs enabling with node.condition_type_to_report
-          # kube_node_spec_unschedulable may not be available in OTel k8sclusterreceiver
           - alert: kube-node-pressure-warning
             expr: >-
-              k8s.node.condition{job="otelcol-k8scluster",condition=~"(MemoryPressure|DiskPressure|PIDPressure)",status="true"} == 1
+              kube_node_status_condition{condition=~"(MemoryPressure|DiskPressure|PIDPressure)",status="true"} == 1
 
-              and on (cluster, node) kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
+              and on (node) kube_node_spec_unschedulable == 0
             for: 5m
             labels:
               severity: warning
@@ -17,19 +15,17 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                {{ $labels.node }} on cluster {{ $labels.cluster }} has active Condition {{ $labels.condition
-                }}. This is caused by resource usage exceeding eviction thresholds. This warning alert fires
+                Node {{ $labels.node }} has active Condition {{ $labels.condition }}.
+                This is caused by resource usage exceeding eviction thresholds. This warning alert fires
                 after 5m.
               runbook_url: default_runbook_url
               summary: Node has as active Condition.
               dashboard_url: default_dashboard_url
-          # NOTE: k8s.node.condition is an optional metric that needs enabling with node.condition_type_to_report
-          # kube_node_spec_unschedulable may not be available in OTel k8sclusterreceiver
           - alert: kube-node-pressure-critical
             expr: >-
-              k8s.node.condition{job="otelcol-k8scluster",condition=~"(MemoryPressure|DiskPressure|PIDPressure)",status="true"} == 1
+              kube_node_status_condition{condition=~"(MemoryPressure|DiskPressure|PIDPressure)",status="true"} == 1
 
-              and on (cluster, node) kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
+              and on (node) kube_node_spec_unschedulable == 0
             for: 10m
             labels:
               severity: critical
@@ -37,8 +33,8 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                {{ $labels.node }} on cluster {{ $labels.cluster }} has active Condition {{ $labels.condition
-                }}. This is caused by resource usage exceeding eviction thresholds. This critical alert fires after 10m.
+                Node {{ $labels.node }} has active Condition {{ $labels.condition }}.
+                This is caused by resource usage exceeding eviction thresholds. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Node has as active Condition.
               dashboard_url: default_dashboard_url

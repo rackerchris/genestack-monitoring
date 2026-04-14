@@ -3,10 +3,8 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-container-waiting
         rules:
-          # NOTE: Uses k8s.container.status.reason which is an optional metric in k8sclusterreceiver
-          # May need to enable optional metrics in OTel collector configuration
           - alert: kube-container-waiting-warning
-            expr: k8s.container.status.reason{reason!="CrashLoopBackOff", job="otelcol-k8scluster", namespace=~".*"} > 0
+            expr: kube_pod_container_status_waiting_reason{reason!="CrashLoopBackOff", namespace=~".*"} > 0
             for: 5m
             labels:
               severity: warning
@@ -20,10 +18,8 @@ additionalPrometheusRulesMap:
               runbook_url: default_runbook_url
               summary: Pod container waiting longer than 5 minutes
               dashboard_url: default_dashboard_url
-          # NOTE: Uses k8s.container.status.reason which is an optional metric in k8sclusterreceiver
-          # May need to enable optional metrics in OTel collector configuration
           - alert: kube-container-waiting-critical
-            expr: k8s.container.status.reason{reason!="CrashLoopBackOff", job="otelcol-k8scluster", namespace=~".*"} > 0
+            expr: kube_pod_container_status_waiting_reason{reason!="CrashLoopBackOff", namespace=~".*"} > 0
             for: 10m
             labels:
               severity: critical

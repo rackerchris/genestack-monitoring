@@ -3,13 +3,11 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-node-readiness-flapping
         rules:
-          # NOTE: k8s.node.condition is an optional metric that needs enabling with node.condition_type_to_report
-          # kube_node_spec_unschedulable may not be available in OTel k8sclusterreceiver
           - alert: kube-node-readiness-flapping-warning
             expr: >-
-              sum(changes(k8s.node.condition{job="otelcol-k8scluster",status="true",condition="Ready"}[15m])) by (cluster, node) > 2
+              sum(changes(kube_node_status_condition{status="true",condition="Ready"}[15m])) by (node) > 2
 
-              and on (cluster, node) kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
+              and on (node) kube_node_spec_unschedulable == 0
             for: 5m
             labels:
               severity: warning
@@ -18,17 +16,15 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 The readiness status of node {{ $labels.node }} has changed {{ $value }} times in the last 15
-                minutes on cluster {{ $labels.cluster }}. This warning alert fires after 5m.
+                minutes. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Node readiness status is flapping.
               dashboard_url: default_dashboard_url
-          # NOTE: k8s.node.condition is an optional metric that needs enabling with node.condition_type_to_report
-          # kube_node_spec_unschedulable may not be available in OTel k8sclusterreceiver
           - alert: kube-node-readiness-flapping-critical
             expr: >-
-              sum(changes(k8s.node.condition{job="otelcol-k8scluster",status="true",condition="Ready"}[15m])) by (cluster, node) > 2
+              sum(changes(kube_node_status_condition{status="true",condition="Ready"}[15m])) by (node) > 2
 
-              and on (cluster, node) kube_node_spec_unschedulable{job="kube-state-metrics"} == 0
+              and on (node) kube_node_spec_unschedulable == 0
             for: 10m
             labels:
               severity: critical
@@ -37,7 +33,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 The readiness status of node {{ $labels.node }} has changed {{ $value }} times in the last 15
-                minutes on cluster {{ $labels.cluster }}. This critical alert fires after 10m.
+                minutes. This critical alert fires after 10m.
               runbook_url: default_runbook_url
               summary: Node readiness status is flapping.
               dashboard_url: default_dashboard_url

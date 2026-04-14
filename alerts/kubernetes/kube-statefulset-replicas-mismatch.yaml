@@ -5,9 +5,9 @@ additionalPrometheusRulesMap:
         rules:
           - alert: kube-statefulset-replicas-mismatch-warning
             expr: >-
-              ( k8s.statefulset.ready_pods{job="otelcol-k8scluster", namespace=~".*"} != k8s.statefulset.desired_pods{job="otelcol-k8scluster", namespace=~".*"} )
+              ( kube_statefulset_status_replicas_ready{namespace=~".*"} != kube_statefulset_replicas{namespace=~".*"} )
 
-              and ( changes(k8s.statefulset.updated_pods{job="otelcol-k8scluster", namespace=~".*"}[10m]) == 0 )
+              and ( changes(kube_statefulset_status_replicas_updated{namespace=~".*"}[10m]) == 0 )
             for: 5m
             labels:
               severity: warning
@@ -16,15 +16,15 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected
-                number of replicas for longer than 5 minutes on cluster {{ $labels.cluster }}.
+                number of replicas for longer than 5 minutes.
               runbook_url: default_runbook_url
               summary: StatefulSet has not matched the expected number of replicas.
               dashboard_url: default_dashboard_url
           - alert: kube-statefulset-replicas-mismatch-critical
             expr: >-
-              ( k8s.statefulset.ready_pods{job="otelcol-k8scluster", namespace=~".*"} != k8s.statefulset.desired_pods{job="otelcol-k8scluster", namespace=~".*"} )
+              ( kube_statefulset_status_replicas_ready{namespace=~".*"} != kube_statefulset_replicas{namespace=~".*"} )
 
-              and ( changes(k8s.statefulset.updated_pods{job="otelcol-k8scluster", namespace=~".*"}[10m]) == 0 )
+              and ( changes(kube_statefulset_status_replicas_updated{namespace=~".*"}[10m]) == 0 )
             for: 10m
             labels:
               severity: critical
@@ -33,7 +33,7 @@ additionalPrometheusRulesMap:
             annotations:
               description: >-
                 StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected
-                number of replicas for longer than 10 minutes on cluster {{ $labels.cluster }}.
+                number of replicas for longer than 10 minutes.
               runbook_url: default_runbook_url
               summary: StatefulSet has not matched the expected number of replicas.
               dashboard_url: default_dashboard_url

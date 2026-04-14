@@ -5,13 +5,13 @@ additionalPrometheusRulesMap:
         rules:
           - alert: kube-hpa-replicas-mismatch-warning
             expr: >-
-              (k8s.hpa.desired_replicas{job="otelcol-k8scluster", namespace=~".*"} != k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"})
+              (kube_horizontalpodautoscaler_status_desired_replicas{namespace=~".*"} != kube_horizontalpodautoscaler_status_current_replicas{namespace=~".*"})
 
-              and (k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"} > k8s.hpa.min_replicas{job="otelcol-k8scluster", namespace=~".*"})
+              and (kube_horizontalpodautoscaler_status_current_replicas{ namespace=~".*"} > kube_horizontalpodautoscaler_spec_min_replicas{namespace=~".*"})
 
-              and (k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"} < k8s.hpa.max_replicas{job="otelcol-k8scluster", namespace=~".*"})
+              and (kube_horizontalpodautoscaler_status_current_replicas{namespace=~".*"} < kube_horizontalpodautoscaler_spec_max_replicas{namespace=~".*"})
 
-              and changes(k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"}[15m]) == 0
+              and changes(kube_horizontalpodautoscaler_status_current_replicas{namespace=~".*"}[15m]) == 0
             for: 5m
             labels:
               severity: warning
@@ -26,13 +26,13 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: kube-hpa-replicas-mismatch-critical
             expr: >-
-              (k8s.hpa.desired_replicas{job="otelcol-k8scluster", namespace=~".*"} != k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"})
+              (kube_horizontalpodautoscaler_status_desired_replicas{namespace=~".*"} != kube_horizontalpodautoscaler_status_current_replicas{namespace=~".*"})
 
-              and (k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"} > k8s.hpa.min_replicas{job="otelcol-k8scluster", namespace=~".*"})
+              and (kube_horizontalpodautoscaler_status_current_replicas{ namespace=~".*"} > kube_horizontalpodautoscaler_spec_min_replicas{namespace=~".*"})
 
-              and (k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"} < k8s.hpa.max_replicas{job="otelcol-k8scluster", namespace=~".*"})
+              and (kube_horizontalpodautoscaler_status_current_replicas{namespace=~".*"} < kube_horizontalpodautoscaler_spec_max_replicas{namespace=~".*"})
 
-              and changes(k8s.hpa.current_replicas{job="otelcol-k8scluster", namespace=~".*"}[15m]) == 0
+              and changes(kube_horizontalpodautoscaler_status_current_replicas{namespace=~".*"}[15m]) == 0
             for: 10m
             labels:
               severity: critical

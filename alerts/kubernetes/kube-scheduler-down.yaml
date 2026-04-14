@@ -12,8 +12,7 @@ additionalPrometheusRulesMap:
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
             annotations:
               description: >-
-                KubeScheduler has disappeared from Prometheus target discovery. This warning alert fires after
-                5m.
+                KubeScheduler has disappeared from Prometheus target discovery. This warning alert fires after 5m.
               runbook_url: default_runbook_url
               summary: Target disappeared from Prometheus target discovery.
               dashboard_url: default_dashboard_url

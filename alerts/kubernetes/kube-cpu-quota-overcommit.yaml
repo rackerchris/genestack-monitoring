@@ -3,8 +3,6 @@ additionalPrometheusRulesMap:
     groups:
       - name: kube-cpu-quota-overcommit
         rules:
-          # NOTE: kube_node_status_allocatable may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics
           - alert: kube-cpu-quota-overcommit-warning
             expr: >-
               sum by (cluster) ( min without(resource) (k8s.resource_quota.hard_limit{job="otelcol-k8scluster", resource=~"(cpu|requests.cpu)"}) ) / sum by (cluster) ( kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"} ) > 1.5
@@ -20,8 +18,6 @@ additionalPrometheusRulesMap:
               runbook_url: default_runbook_url
               summary: Cluster has overcommitted CPU resource requests.
               dashboard_url: default_dashboard_url
-          # NOTE: kube_node_status_allocatable may not be available in OTel k8sclusterreceiver
-          # Consider using Prometheus receiver for kube-state-metrics
           - alert: kube-cpu-quota-overcommit-critical
             expr: >-
               sum by (cluster) ( min without(resource) (k8s.resource_quota.hard_limit{job="otelcol-k8scluster", resource=~"(cpu|requests.cpu)"}) ) / sum by (cluster) ( kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"} ) > 1.5
