@@ -13,6 +13,8 @@ additionalPrometheusRulesMap:
           severity: warning
           group_name: openstack-cinder-volume-stuck-creating
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+          correlation_key: cinder_volume_status/creating
+          correlation_scope: cinder_volume_status
         annotations:
           runbook_url: default_runbook_url
           dashboard_url: default_dashboard_url
@@ -28,6 +30,8 @@ additionalPrometheusRulesMap:
           severity: critical
           group_name: openstack-cinder-volume-stuck-creating
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+          correlation_key: cinder_volume_status/creating
+          correlation_scope: cinder_volume_status
         annotations:
           runbook_url: default_runbook_url
           dashboard_url: default_dashboard_url

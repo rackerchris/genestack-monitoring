@@ -13,6 +13,9 @@ additionalPrometheusRulesMap:
           node: "{{ $labels.instance }}"
           group_name: cinder-netapp-cluster-pool-freespace
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+          correlation_key: cinder_netapp_cluster/cinder02
+          correlation_scope: cinder_netapp_cluster
+          root_cause: 'true'
         annotations:
           runbook_url: default_runbook_url
           dashboard_url: default_dashboard_url
@@ -28,6 +31,9 @@ additionalPrometheusRulesMap:
           node: "{{ $labels.instance }}"
           group_name: cinder-netapp-cluster-pool-freespace
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+          correlation_key: cinder_netapp_cluster/cinder02
+          correlation_scope: cinder_netapp_cluster
+          root_cause: 'true'
         annotations:
           runbook_url: default_runbook_url
           dashboard_url: default_dashboard_url

@@ -15,6 +15,9 @@ additionalPrometheusRulesMap:
               severity: warning
               group_name: kube-cpu-overcommit
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+              correlation_key: cluster/{{ $labels.cluster }}/cpu-overcommit
+              correlation_scope: cluster
+              root_cause: 'true'
             annotations:
               description: >-
                 Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ printf
@@ -34,6 +37,9 @@ additionalPrometheusRulesMap:
               severity: critical
               group_name: kube-cpu-overcommit
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+              correlation_key: cluster/{{ $labels.cluster }}/cpu-overcommit
+              correlation_scope: cluster
+              root_cause: 'true'
             annotations:
               description: >-
                 Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ printf

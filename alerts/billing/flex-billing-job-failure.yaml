@@ -10,6 +10,8 @@ additionalPrometheusRulesMap:
           severity: warning
           group_name: flex-billing-job-failure
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+          correlation_key: cronjob/flex-billing/flex-billing-cronjob
+          correlation_scope: cronjob
         annotations:
           description: >-
             Last flex-billing job not successful within 1 hour of scheduled run.
@@ -23,6 +25,8 @@ additionalPrometheusRulesMap:
           severity: critical
           group_name: flex-billing-job-failure
           node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+          correlation_key: cronjob/flex-billing/flex-billing-cronjob
+          correlation_scope: cronjob
         annotations:
           description: >-
             Second successive flex-billing job not successful within 1 hour of scheduled run.

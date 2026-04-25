@@ -5,12 +5,15 @@ additionalPrometheusRulesMap:
         rules:
           - alert: kube-cpu-quota-overcommit-warning
             expr: >-
-              sum(kube_pod_container_resource_requests{resource="cpu", job="kube-state-metrics"}) / sum(kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"}) > 1.5
+              sum by (cluster) (kube_pod_container_resource_requests{resource="cpu", job="kube-state-metrics"}) / sum by (cluster) (kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"}) > 1.5
             for: 5m
             labels:
               severity: warning
               group_name: kube-cpu-quota-overcommit
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+              correlation_key: cluster/{{ $labels.cluster }}/cpu-quota-overcommit
+              correlation_scope: cluster
+              root_cause: 'true'
             annotations:
               description: >-
                 Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Namespaces. This
@@ -20,12 +23,15 @@ additionalPrometheusRulesMap:
               dashboard_url: default_dashboard_url
           - alert: kube-cpu-quota-overcommit-critical
             expr: >-
-              sum(kube_pod_container_resource_requests{resource="cpu", job="kube-state-metrics"}) / sum(kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"}) > 1.5
+              sum by (cluster) (kube_pod_container_resource_requests{resource="cpu", job="kube-state-metrics"}) / sum by (cluster) (kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"}) > 1.5
             for: 10m
             labels:
               severity: critical
               group_name: kube-cpu-quota-overcommit
               node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+              correlation_key: cluster/{{ $labels.cluster }}/cpu-quota-overcommit
+              correlation_scope: cluster
+              root_cause: 'true'
             annotations:
               description: >-
                 Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Namespaces. This
