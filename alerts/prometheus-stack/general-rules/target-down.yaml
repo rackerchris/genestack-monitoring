@@ -4,12 +4,12 @@ additionalPrometheusRulesMap:
     - name: target-down
       rules:
       - alert: target-down-warning
-        expr: ((100 * count by (cluster, job, namespace) (up{job!~"opentelemetry-kube-stack-.*-collector.*"} == 0) / count by (cluster, job, namespace) (up{job!~"opentelemetry-kube-stack-.*-collector"})) >  25) and on (cluster, job, namespace)count by (cluster, job, namespace) (up{job!~"opentelemetry-kube-stack-.*-collector"}) >= 4
+        expr: up{job!~"opentelemetry-kube-stack-.*-collector.*"} == 0
         for: 5m
         labels:
           severity: warning
           group_name: target-down
-          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.k8s_node_name }}'
           correlation_key: target/{{ $labels.cluster }}/{{ $labels.namespace }}/{{ $labels.job }}
           correlation_scope: target
         annotations:
@@ -18,12 +18,12 @@ additionalPrometheusRulesMap:
           summary: One or more targets are unreachable.
           dashboard_url: default_dashboard_url
       - alert: target-down-critical
-        expr: ((100 * count by (cluster, job, namespace) (up{job!~"opentelemetry-kube-stack-.*-collector.*"} == 0) / count by (cluster, job, namespace) (up{job!~"opentelemetry-kube-stack-.*-collector"})) >  25) and on (cluster, job, namespace)count by (cluster, job, namespace) (up{job!~"opentelemetry-kube-stack-.*-collector"}) >= 4
+        expr: up{job!~"opentelemetry-kube-stack-.*-collector.*"} == 0
         for: 10m
         labels:
           severity: critical
           group_name: target-down
-          node_hostname: '{{ reReplaceAll ":.*" "" $labels.instance }}'
+          node_hostname: '{{ reReplaceAll ":.*" "" $labels.k8s_node_name }}'
           correlation_key: target/{{ $labels.cluster }}/{{ $labels.namespace }}/{{ $labels.job }}
           correlation_scope: target
         annotations:

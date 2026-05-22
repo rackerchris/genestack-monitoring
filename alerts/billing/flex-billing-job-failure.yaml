@@ -4,7 +4,7 @@ additionalPrometheusRulesMap:
     - name: flex-billing-job-failure
       rules:
       - alert: flex-billing-failure-warning
-        expr: 'time() - kube_cronjob_status_last_successful_time{cronjob="flex-billing-cronjob", namespace="flex-billing"} > 46800'
+        expr: 'time() - kube_cronjob_status_last_successful_time{cronjob="flex-billing-cronjob", exported_namespace="flex-billing"} > 46800'
         for: 1h
         labels:
           severity: warning
@@ -19,7 +19,7 @@ additionalPrometheusRulesMap:
           summary: Last flex-billing job not successful within 1 hour of scheduled run
           dashboard_url: default_dashboard_url
       - alert: flex-billing-failure-critical
-        expr: 'time() - kube_cronjob_status_last_successful_time{cronjob="flex-billing-cronjob", namespace="flex-billing"} > 90000'
+        expr: 'time() - kube_cronjob_status_last_successful_time{cronjob="flex-billing-cronjob", exported_namespace="flex-billing"} > 90000'
         for: 1h
         labels:
           severity: critical

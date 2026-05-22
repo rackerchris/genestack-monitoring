@@ -4,8 +4,20 @@ additionalPrometheusRulesMap:
       - name: kube-pod-not-ready
         rules:
           - alert: kube-pod-not-ready-warning
-            expr: >-
-              sum by (namespace, pod, node) ( max by (namespace, pod) ( kube_pod_status_phase{namespace=~".*", phase=~"Pending|Failed|Unknown"} == 1 ) * on (namespace, pod) group_left(owner_kind) topk by (namespace, pod) ( 1, max by (namespace, pod, owner_kind) (kube_pod_owner{owner_kind!="Job"}) ) * on (namespace, pod) group_left(node) max by (namespace, pod, node) (kube_pod_info{node!=""}) ) > 0
+            expr: >
+              sum by (namespace, pod, node) (
+                max by (namespace, pod, uid) (
+                  kube_pod_status_phase{namespace=~".*", phase=~"Pending|Failed|Unknown"} == 1
+                )
+                * on (namespace, pod, uid)
+                max by (namespace, pod, uid) (
+                  kube_pod_owner{owner_kind!="Job", owner_is_controller="true"}
+                )
+                * on (namespace, pod, uid) group_left(node)
+                max by (namespace, pod, uid, node) (
+                  kube_pod_info{node!=""}
+                )
+              ) > 0
             for: 5m
             labels:
               severity: warning
@@ -22,8 +34,20 @@ additionalPrometheusRulesMap:
               summary: Pod has been in a non-ready state for more than 5 minutes.
               dashboard_url: default_dashboard_url
           - alert: kube-pod-not-ready-critical
-            expr: >-
-              sum by (namespace, pod, node) ( max by (namespace, pod) ( kube_pod_status_phase{namespace=~".*", phase=~"Pending|Failed|Unknown"} == 1 ) * on (namespace, pod) group_left(owner_kind) topk by (namespace, pod) ( 1, max by (namespace, pod, owner_kind) (kube_pod_owner{owner_kind!="Job"}) ) * on (namespace, pod) group_left(node) max by (namespace, pod, node) (kube_pod_info{node!=""}) ) > 0
+            expr: >
+              sum by (namespace, pod, node) (
+                max by (namespace, pod, uid) (
+                  kube_pod_status_phase{namespace=~".*", phase=~"Pending|Failed|Unknown"} == 1
+                )
+                * on (namespace, pod, uid)
+                max by (namespace, pod, uid) (
+                  kube_pod_owner{owner_kind!="Job", owner_is_controller="true"}
+                )
+                * on (namespace, pod, uid) group_left(node)
+                max by (namespace, pod, uid, node) (
+                  kube_pod_info{node!=""}
+                )
+              ) > 0
             for: 10m
             labels:
               severity: critical
