@@ -5,7 +5,7 @@ additionalPrometheusRulesMap:
       rules:
       - alert: megaraid-bbus-status-warning
         expr: megaraid_battery_backup_healthy{job="node-exporter"} < 1
-        for: 5m
+        for: 30m
         labels:
           severity: warning
           node: "{{ $labels.k8s_node_name }}"
@@ -19,10 +19,10 @@ additionalPrometheusRulesMap:
           runbook_url: default_runbook_url
           dashboard_url: default_dashboard_url
           summary: "DELL megaraid Battery Backup Unit (BBU) status alert"
-          description: "{{ $labels.name }}\nController: {{ $labels.controller }}\nNode: {{ $labels.k8s_node_name }}"
+          description: "{{ $labels.name }}\nController: {{ $labels.controller }}\nNode: {{ $labels.k8s_node_name }}. This may be an expected learning/discharge cycle. This warning alert will close after the cycle finishes in roughly 3-12 hours."
       - alert: megaraid-bbus-status-critical
         expr: megaraid_battery_backup_healthy{job="node-exporter"} < 1
-        for: 15m
+        for: 24h
         labels:
           severity: critical
           node: "{{ $labels.k8s_node_name }}"
@@ -36,4 +36,4 @@ additionalPrometheusRulesMap:
           runbook_url: default_runbook_url
           dashboard_url: default_dashboard_url
           summary: "DELL megaraid Battery Backup Unit (BBU) status alert"
-          description: "{{ $labels.name }}\nController: {{ $labels.controller }}\nNode: {{ $labels.k8s_node_name }}"
+          description: "{{ $labels.name }}\nController: {{ $labels.controller }}\nNode: {{ $labels.k8s_node_name }}. The battery backup unit is reporting unhealth for over 24 hours, this is a critical failure that needs to be addressed."
