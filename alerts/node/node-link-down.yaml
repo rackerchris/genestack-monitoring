@@ -1,0 +1,18 @@
+additionalPrometheusRulesMap:
+  node-link-down:
+    groups:
+      - name: node-link-down
+        rules:
+          - alert: node-link-down-critical
+            expr: (node_network_carrier{device=~'eno[[:digit:]][[:digit:]]|eno[[:digit:]]+[[:alpha:]]+.*|enp.*|ens.*|overlay.*|mgmt.*|bond[[:digit:]]+.*|storage|storage[-_][[:alpha:]]+.*|br-mgmt|br-overlay|br-storage|br-storage[-_][[:alpha:]]+.*'} == 0) and on(instance, device) node_network_info{adminstate="up"}
+            for: 5m
+            labels:
+              severity: critical
+              group_name: node-link-down
+              node_hostname: '{{ $labels.k8s_node_name }}'
+            annotations:
+              description: >-
+                Carrier link reported down, device: {{ $labels.device }} on {{ $labels.k8s_node_name }} this indicates a critical networking failure on the node
+              runbook_url: default_runbook_url
+              summary: Node carrier link down
+              dashboard_url: default_dashboard_url
